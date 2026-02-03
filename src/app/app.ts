@@ -5,13 +5,11 @@ import {RouterOutlet} from '@angular/router';
 @Component({
   selector: 'app-root',
   template: `
-    @if (isLoggedIn) {
-      <p>Welcome back, Friend!</p>
+    @for (os of operatingSystem; track os.id) {
+      {{ os.id }}
     }
-    @if (isServerRunning) {
-      <span>Yes, the server is running.</span>
-    } @else {
-      <span>No, the server is not running.</span>
+    @for (user of users; track user.id) {
+      {{ user.name }}
     }
   `,
   styleUrl: './app.scss'
@@ -19,6 +17,18 @@ import {RouterOutlet} from '@angular/router';
 export class App {
   protected readonly title = signal('personal-finance-app');
 
-  isLoggedIn = true;
-  isServerRunning = true;
+  operatingSystem = [
+    {id: 'win', name: 'Windows'},
+    {id: 'linux', name: 'Linux'},
+    {id: 'osx', name: 'Mac OS'}
+  ];
+
+  users =[
+    {id: 1, name: 'John'},
+    {id: 2, name: 'Jane'},
+    {id: 3, name: 'Bob'},
+    {id: 3, name: 'Leo'},
+    {id: 3, name: 'Vanessa'},
+    {id: 3, name: 'Darlan'}
+  ];
 }
