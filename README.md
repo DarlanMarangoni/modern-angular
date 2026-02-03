@@ -78,3 +78,5 @@ For more information on using the Angular CLI, including detailed command refere
 9 - https://angular.dev/tutorials/learn-angular/11-optimizing-images
 
 10 - https://angular.dev/tutorials/learn-angular/12-enable-routing
+
+11 - https://angular.dev/tutorials/learn-angular/13-define-a-route
