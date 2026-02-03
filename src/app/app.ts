@@ -5,12 +5,23 @@ import {RouterOutlet} from '@angular/router';
 @Component({
   selector: 'app-root',
   template: `
-    <div [contentEditable]="isEditable"></div>
+
+    <section (mouseover)="showSecretMessage()" (mouseleave)="hideMessage()">
+      There's a secret message for you, hover to reveal 👀
+      {{ message }}
+    </section>
   `,
   styleUrl: './app.scss'
 })
 export class App {
   protected readonly title = signal('personal-finance-app');
 
-  isEditable = true;
+  message = '';
+
+  showSecretMessage() {
+    this.message = 'Way to go 🚀';
+  }
+  hideMessage() {
+    this.message = '';
+  }
 }
