@@ -62,3 +62,7 @@ For more information on using the Angular CLI, including detailed command refere
 1 - https://angular.dev/tutorials/learn-angular/3-composing-components
 
 2 - https://angular.dev/tutorials/learn-angular/4-control-flow-if
+
+3 - https://angular.dev/tutorials/learn-angular/5-control-flow-for
+
+4 - https://angular.dev/tutorials/learn-angular/6-property-binding
