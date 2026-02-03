@@ -68,3 +68,5 @@ For more information on using the Angular CLI, including detailed command refere
 4 - https://angular.dev/tutorials/learn-angular/6-property-binding
 
 5 - https://angular.dev/tutorials/learn-angular/7-event-handling
+
+6 - https://angular.dev/tutorials/learn-angular/8-input

@@ -1,5 +1,14 @@
-import {Component, signal} from '@angular/core';
+import {Component, input, signal} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
+
+@Component({
+    selector: 'app-user',
+    template: `<p>The user's name is {{ name() }}</p>`
+  }
+)
+export class User {
+  name = input<String>();
+}
 
 
 @Component({
@@ -10,7 +19,9 @@ import {RouterOutlet} from '@angular/router';
       There's a secret message for you, hover to reveal 👀
       {{ message }}
     </section>
+    <app-user name="Darlan"/>
   `,
+  imports: [User],
   styleUrl: './app.scss'
 })
 export class App {
@@ -21,6 +32,7 @@ export class App {
   showSecretMessage() {
     this.message = 'Way to go 🚀';
   }
+
   hideMessage() {
     this.message = '';
   }
