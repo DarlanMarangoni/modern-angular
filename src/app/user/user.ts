@@ -12,4 +12,8 @@ export class User {
   username = 'Darlan';
   favoriteFramework = '';
 
+  showFramework() {
+    alert(this.favoriteFramework);
+  }
+
 }
