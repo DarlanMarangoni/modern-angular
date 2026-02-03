@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-user',
-  imports: [],
   templateUrl: './user.html',
   styleUrl: './user.scss',
+  imports: [FormsModule],
 })
 export class User {
+
+  username = 'Darlan';
+  favoriteFramework = '';
 
 }
