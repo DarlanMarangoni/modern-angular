@@ -1,55 +1,78 @@
-import {Component, input, output, signal} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: 'app-child',
-  styles: `
-    .btn {
-      padding: 5px;
-    }
-  `,
+  selector: 'comments',
   template: `
-    <button class="btn" (click)="addItem()">Add Item</button> `,
+    <ul>
+      <li>Building for the web is fantastic!</li>
+      <li>The new template syntax is great</li>
+      <li>I agree with the other comments!</li>
+    </ul>
+  `,
 })
-export class Child {
-  readonly addItemEvent = output<String>();
+export class Comments {}
 
-  addItem() {
-    this.addItemEvent.emit('🐢');
-  }
-
-}
 
 @Component({
   selector: 'app-root',
   template: `
-    <section (mouseover)="showSecretMessage()" (mouseleave)="hideMessage()">
-      There's a secret message for you, hover to reveal 👀
-      {{ message }}
-    </section>
-    <app-child (addItemEvent)="addItem($event)" />
-    {{ items }}
+    <div>
+      <h1>How I feel about Angular</h1>
+      <article>
+        <p>
+          Angular is my favorite framework, and this is why. Angular has the coolest deferrable view
+          feature that makes defer loading content the easiest and most ergonomic it could possibly
+          be. The Angular community is also filled with amazing contributors and experts that create
+          excellent content. The community is welcoming and friendly, and it really is the best
+          community out there.
+        </p>
+        <p>
+          I can't express enough how much I enjoy working with Angular. It offers the best developer
+          experience I've ever had. I love that the Angular team puts their developers first and
+          takes care to make us very happy. They genuinely want Angular to be the best framework it
+          can be, and they're doing such an amazing job at it, too. This statement comes from my
+          heart and is not at all copied and pasted. In fact, I think I'll say these exact same
+          things again a few times.
+        </p>
+        <p>
+          Angular is my favorite framework, and this is why. Angular has the coolest deferrable view
+          feature that makes defer loading content the easiest and most ergonomic it could possibly
+          be. The Angular community is also filled with amazing contributors and experts that create
+          excellent content. The community is welcoming and friendly, and it really is the best
+          community out there.
+        </p>
+        <p>
+          I can't express enough how much I enjoy working with Angular. It offers the best developer
+          experience I've ever had. I love that the Angular team puts their developers first and
+          takes care to make us very happy. They genuinely want Angular to be the best framework it
+          can be, and they're doing such an amazing job at it, too. This statement comes from my
+          heart and is not at all copied and pasted. In fact, I think I'll say these exact same
+          things again a few times.
+        </p>
+        <p>
+          Angular is my favorite framework, and this is why. Angular has the coolest deferrable view
+          feature that makes defer loading content the easiest and most ergonomic it could possibly
+          be. The Angular community is also filled with amazing contributors and experts that create
+          excellent content. The community is welcoming and friendly, and it really is the best
+          community out there.
+        </p>
+        <p>
+          I can't express enough how much I enjoy working with Angular. It offers the best developer
+          experience I've ever had. I love that the Angular team puts their developers first and
+          takes care to make us very happy. They genuinely want Angular to be the best framework it
+          can be, and they're doing such an amazing job at it, too. This statement comes from my
+          heart and is not at all copied and pasted.
+        </p>
+      </article>
+      @defer (on viewport) {
+        <comments />
+      } @placeholder {
+        <p>Future comments</p>
+      } @loading (minimum 10s) {
+        <p>Loading comments...</p>
+      }
+    </div>
   `,
-  imports: [Child],
-  styleUrl: './app.scss'
+  imports: [Comments],
 })
-export class App {
-  protected readonly title = signal('personal-finance-app');
-
-  items = new Array<String>();
-
-  addItem(item: String) {
-    this.items.push(item);
-    console.log(this.items);
-  }
-
-  message = '';
-
-  showSecretMessage() {
-    this.message = 'Way to go 🚀';
-  }
-
-  hideMessage() {
-    this.message = '';
-  }
-}
+export class App {}
