@@ -61,3 +61,4 @@ For more information on using the Angular CLI, including detailed command refere
 ## Leaning
 1 - https://angular.dev/tutorials/learn-angular/3-composing-components
 
+2 - https://angular.dev/tutorials/learn-angular/4-control-flow-if

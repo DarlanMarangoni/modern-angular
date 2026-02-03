@@ -1,23 +1,24 @@
 import {Component, signal} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 
-@Component({
-    selector: 'app-user',
-    template: `Username: {{ username }}`,
-  }
-)
-export class User {
-  username = 'Darlan';
-}
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, User],
-  templateUrl: './app.html',
+  template: `
+    @if (isLoggedIn) {
+      <p>Welcome back, Friend!</p>
+    }
+    @if (isServerRunning) {
+      <span>Yes, the server is running.</span>
+    } @else {
+      <span>No, the server is not running.</span>
+    }
+  `,
   styleUrl: './app.scss'
 })
 export class App {
   protected readonly title = signal('personal-finance-app');
 
-  city = 'San Francisco';
+  isLoggedIn = true;
+  isServerRunning = true;
 }
