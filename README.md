@@ -70,3 +70,5 @@ For more information on using the Angular CLI, including detailed command refere
 5 - https://angular.dev/tutorials/learn-angular/7-event-handling
 
 6 - https://angular.dev/tutorials/learn-angular/8-input
+
+7- https://angular.dev/tutorials/learn-angular/9-output
