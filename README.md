@@ -74,3 +74,5 @@ For more information on using the Angular CLI, including detailed command refere
 7- https://angular.dev/tutorials/learn-angular/9-output
 
 8 - https://angular.dev/tutorials/learn-angular/10-deferrable-views
+
+9 - https://angular.dev/tutorials/learn-angular/11-optimizing-images
