@@ -90,3 +90,5 @@ For more information on using the Angular CLI, including detailed command refere
 15 - https://angular.dev/tutorials/learn-angular/17-reactive-forms
 
 16 - https://angular.dev/tutorials/learn-angular/18-forms-validation
+
+17 - https://angular.dev/tutorials/learn-angular/19-creating-an-injectable-service z6
