@@ -1,21 +1,27 @@
 import {Component, inject} from '@angular/core';
 import {CarService} from './car.service';
-import {UpperCasePipe} from '@angular/common';
+import {CurrencyPipe, DatePipe, DecimalPipe} from '@angular/common';
 
 
 @Component({
   selector: 'app-root',
   template: `
-    template: \`<p>Car Listing: {{ display | uppercase}}</p>\`,
+    <li>Number with "decimal": {{ num | number: '3.2-2' }}</li>
+    <li>Date with "date": {{ birthday | date: 'medium' }}</li>
+    <li>Currency with "currency": {{ cost | currency }}</li>
   `,
   imports: [
-    UpperCasePipe
+    DecimalPipe,
+    DatePipe,
+    CurrencyPipe
   ],
 })
 export class App {
 
   carService = inject(CarService);
 
-  display = this.carService.getCars().join(' ⭐️ ');
+  num = 1234567.89;
+  birthday = new Date();
+  cost = 1.99;
 
 }
