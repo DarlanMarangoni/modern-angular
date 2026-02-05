@@ -94,3 +94,7 @@ For more information on using the Angular CLI, including detailed command refere
 17 - https://angular.dev/tutorials/learn-angular/19-creating-an-injectable-service 
 
 18 - https://angular.dev/tutorials/learn-angular/20-inject-based-dihttps://angular.dev/tutorials/learn-angular/20-inject-based-di
+
+19 - https://angular.dev/tutorials/learn-angular/22-pipes
+
+
