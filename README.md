@@ -101,4 +101,6 @@ For more information on using the Angular CLI, including detailed command refere
 
 21 - https://angular.dev/tutorials/learn-angular/23-pipes-format-data
 
+22 - https://angular.dev/tutorials/learn-angular/24-create-a-pipe
+
 
