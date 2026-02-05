@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import { MenubarModule } from 'primeng/menubar';
+import {MenubarModule} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
 
 
@@ -9,7 +9,7 @@ import {MenuItem} from 'primeng/api';
   templateUrl: './app.html',
   imports: [
     RouterOutlet,
-    MenubarModule
+    MenubarModule,
   ]
 })
 export class App implements OnInit {
@@ -19,19 +19,23 @@ export class App implements OnInit {
     this.items = [
       {
         label: 'Home',
-        icon: 'pi pi-home'
+        icon: 'pi pi-home',
+        routerLink: '/'
       },
       {
         label: 'Despesas',
-        icon: 'pi pi-home'
+        icon: 'pi pi-minus-circle',
+        routerLink: '/despesas'
       },
       {
         label: 'Proventos',
-        icon: 'pi pi-home'
+        icon: 'pi pi-dollar',
+        routerLink: '/proventos'
       },
       {
         label: 'Investimentos',
-        icon: 'pi pi-home'
+        icon: 'pi pi-chart-line',
+        routerLink: '/investimentos'
       }
     ]
   }
