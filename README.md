@@ -91,4 +91,6 @@ For more information on using the Angular CLI, including detailed command refere
 
 16 - https://angular.dev/tutorials/learn-angular/18-forms-validation
 
-17 - https://angular.dev/tutorials/learn-angular/19-creating-an-injectable-service z6
+17 - https://angular.dev/tutorials/learn-angular/19-creating-an-injectable-service 
+
+18 - https://angular.dev/tutorials/learn-angular/20-inject-based-dihttps://angular.dev/tutorials/learn-angular/20-inject-based-di

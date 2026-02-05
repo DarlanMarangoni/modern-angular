@@ -5,4 +5,7 @@ import {Injectable} from '@angular/core';
 })
 export class CarService {
 
+  getCars() {
+    return ['BMW', 'Ford', 'Volvo'];
+  }
 }
