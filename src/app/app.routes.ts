@@ -1,6 +1,5 @@
 import {Routes} from '@angular/router';
 import {Home} from './home/home';
-import {Despesas} from './despesas/despesas';
 import {Investimentos} from './investimentos/investimentos';
 import {Proventos} from './proventos/proventos';
 
@@ -12,8 +11,9 @@ export const routes: Routes = [
   },
   {
     path: 'despesas',
-    title: 'App Despesas',
-    component: Despesas
+    loadComponent: () =>
+      import('./pages/despesas/despesas')
+        .then(m => m.DespesasComponent)
   },
   {
     path: 'investimentos',
