@@ -1,8 +1,8 @@
-<h2 style="text-align: center">Nova Despesa</h2>
+<h2 style="text-align: center">Adicionar Despesa</h2>
 
 <form [formGroup]="form" (ngSubmit)="salvar()" class="form">
 
-  <mat-form-field >
+  <mat-form-field>
     <mat-label>Nome</mat-label>
     <input matInput formControlName="nome"/>
     @if (form.controls.nome.invalid) {
@@ -12,7 +12,7 @@
     }
   </mat-form-field>
 
-  <mat-form-field >
+  <mat-form-field>
     <mat-label>Categoria</mat-label>
     <mat-select formControlName="categoria">
       @for (c of categorias; track c) {
@@ -23,12 +23,12 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field >
+  <mat-form-field>
     <mat-label>Descrição</mat-label>
     <input matInput formControlName="descricao"/>
   </mat-form-field>
 
-  <mat-form-field >
+  <mat-form-field>
     <mat-label>Data</mat-label>
     <input matInput [matDatepicker]="picker" formControlName="data">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -37,7 +37,7 @@
 
   <mat-form-field floatLabel="always">
     <mat-label>Valor</mat-label>
-    <input matInput type="number" class="example-right-align" formControlName="valor" />
+    <input matInput type="number" class="example-right-align" formControlName="valor"/>
     <span matTextPrefix>$&nbsp;</span>
   </mat-form-field>
 
@@ -46,3 +46,4 @@
   </button>
 
 </form>
+
