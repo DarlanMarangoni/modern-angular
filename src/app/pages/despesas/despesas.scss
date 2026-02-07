@@ -1,5 +1,20 @@
-.form {
+.main-container {
+  margin: 1rem;
   display: flex;
-  flex-direction: column;
-  padding: 1rem;
+  justify-content: space-around;
+}
+
+.form {
+  max-width: 1080px;
+}
+
+mat-form-field {
+  margin-right: 1rem;
+  min-width: 300px;
+}
+
+@media (max-width: 670px) {
+  mat-form-field {
+    width: 100%;
+  }
 }

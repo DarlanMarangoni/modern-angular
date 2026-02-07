@@ -1,49 +1,49 @@
-<h2 style="text-align: center">Adicionar Despesa</h2>
+<div class="main-container">
+  <form [formGroup]="form" (ngSubmit)="salvar()" class="form">
+    <div class="container">
+      <mat-form-field>
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome"/>
+        @if (form.controls.nome.invalid) {
+          <mat-error>
+            Nome é obrigatório
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Categoria</mat-label>
+        <mat-select formControlName="categoria">
+          @for (c of categorias; track c) {
+            <mat-option [value]="c">
+              {{ c }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
 
-<form [formGroup]="form" (ngSubmit)="salvar()" class="form">
+      <mat-form-field>
+        <mat-label>Descrição</mat-label>
+        <input matInput formControlName="descricao"/>
+      </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Nome</mat-label>
-    <input matInput formControlName="nome"/>
-    @if (form.controls.nome.invalid) {
-      <mat-error>
-        Nome é obrigatório
-      </mat-error>
-    }
-  </mat-form-field>
+      <mat-form-field>
+        <mat-label>Data</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="data">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Categoria</mat-label>
-    <mat-select formControlName="categoria">
-      @for (c of categorias; track c) {
-        <mat-option [value]="c">
-          {{ c }}
-        </mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Descrição</mat-label>
-    <input matInput formControlName="descricao"/>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Data</mat-label>
-    <input matInput [matDatepicker]="picker" formControlName="data">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-
-  <mat-form-field floatLabel="always">
-    <mat-label>Valor</mat-label>
-    <input matInput type="number" class="example-right-align" formControlName="valor"/>
-    <span matTextPrefix>$&nbsp;</span>
-  </mat-form-field>
-
-  <button mat-raised-button color="primary" type="submit">
-    Salvar Despesa
-  </button>
-
-</form>
+      <mat-form-field floatLabel="always">
+        <mat-label>Valor</mat-label>
+        <input matInput type="number" class="example-right-align" formControlName="valor"/>
+        <span matTextPrefix>$&nbsp;</span>
+      </mat-form-field>
+    </div>
+    <div class="container">
+      <button mat-raised-button color="primary" type="submit">
+        Salvar Despesa
+      </button>
+    </div>
+  </form>
+</div>
 
