@@ -38,7 +38,7 @@ export class DespesasComponent implements OnInit {
     categoria: ['', Validators.required],
     descricao: [''],
     data: [new Date(), Validators.required],
-    valor: [0, [Validators.required, Validators.min(0.01)]]
+    valor: [0, [Validators.required]]
   });
 
   categorias = signal<Category[]>([]);
@@ -57,17 +57,24 @@ export class DespesasComponent implements OnInit {
     }
     this.despesasService.salvar({
       id: null,
-      name: this.form.getRawValue().nome,
-      category: this.form.getRawValue().categoria,
+      name: this.form.getRawValue().nome.trim(),
+      category: this.form.getRawValue().categoria.trim(),
       date: this.form.getRawValue().data,
       description: this.form.getRawValue().descricao,
       value: this.form.getRawValue().valor
     }).subscribe({
-      next: () => this.form.reset(),
+      next: () => {
+        this.form.reset({
+          nome: ' ',
+          categoria: ' ',
+          descricao: '',
+          data: new Date(),
+          valor: 0
+        });
+        this.form.clearValidators();
+      },
       error: () => alert('Erro ao salvar')
     });
   }
-
-
 
 }
