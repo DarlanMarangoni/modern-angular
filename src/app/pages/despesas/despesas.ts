@@ -1,14 +1,15 @@
-import {Component, inject} from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import {Component, inject, OnInit, signal} from '@angular/core';
+import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {CommonModule} from '@angular/common';
 
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import {MatGridList, MatGridTile} from '@angular/material/grid-list';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {Category, CategoryService} from '../../shared/service/category.service';
+import {DespesasService} from '../../shared/service/despesas.service';
 
 @Component({
   selector: 'app-despesas',
@@ -26,19 +27,11 @@ import {MatGridList, MatGridTile} from '@angular/material/grid-list';
   templateUrl: './despesas.html',
   styleUrls: ['./despesas.scss']
 })
-export class DespesasComponent {
-
-  categorias = [
-    'Alimentação',
-    'Moradia',
-    'Transporte',
-    'Lazer',
-    'Saúde',
-    'Educação',
-    'Outros'
-  ];
+export class DespesasComponent implements OnInit {
 
   fb = inject(FormBuilder);
+  categoriesService = inject(CategoryService);
+  despesasService = inject(DespesasService);
 
   form = this.fb.nonNullable.group({
     nome: ['', Validators.required],
@@ -48,12 +41,33 @@ export class DespesasComponent {
     valor: [0, [Validators.required, Validators.min(0.01)]]
   });
 
+  categorias = signal<Category[]>([]);
+
+  ngOnInit(): void {
+    this.categoriesService.getCategories()
+      .subscribe({
+        next: value => this.categorias.set(value)
+      });
+  }
+
   salvar() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
-
-    console.log('Despesa:', this.form.getRawValue());
+    this.despesasService.salvar({
+      id: null,
+      name: this.form.getRawValue().nome,
+      category: this.form.getRawValue().categoria,
+      date: this.form.getRawValue().data,
+      description: this.form.getRawValue().descricao,
+      value: this.form.getRawValue().valor
+    }).subscribe({
+      next: () => this.form.reset(),
+      error: () => alert('Erro ao salvar')
+    });
   }
+
+
+
 }
