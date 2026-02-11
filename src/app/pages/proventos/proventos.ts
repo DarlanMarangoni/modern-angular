@@ -21,6 +21,7 @@ import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Category} from '../../shared/service/category.service';
 import {CommonModule} from '@angular/common';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {ProventosService} from '../../shared/service/proventos.service';
 
 @Component({
   selector: 'app-proventos',
@@ -51,9 +52,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 export class Proventos implements OnInit {
   fb = inject(FormBuilder);
 
+  proventosService = inject(ProventosService);
+
   form = this.fb.nonNullable.group({
     nome: ['', Validators.required],
-    categoria: ['', Validators.required],
+    tipo: ['', Validators.required],
     descricao: [''],
     data: [new Date(), Validators.required],
     valor: [0, [Validators.required]]
@@ -70,5 +73,14 @@ export class Proventos implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
+    this.proventosService.salvar({
+      id: null,
+      name: this.form.getRawValue().nome,
+      description: this.form.getRawValue().descricao,
+      value: this.form.getRawValue().valor,
+      date: this.form.getRawValue().data,
+      type: this.form.getRawValue().tipo,
+      userId: '0199812b-ee85-74a1-8bb3-05d2185f93fc'
+    })
   }
 }

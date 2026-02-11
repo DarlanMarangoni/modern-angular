@@ -1,4 +1,4 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {MatButton, MatButtonModule} from '@angular/material/button';
 import {
   MatDatepicker,
@@ -19,6 +19,7 @@ import {MatNativeDateModule, MatOption} from '@angular/material/core';
 import {MatSelect, MatSelectModule} from '@angular/material/select';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {InvestimentosServices} from '../../shared/service/investimentos.services';
 
 @Component({
   selector: 'app-investimentos',
@@ -47,15 +48,18 @@ import {MatFormFieldModule} from '@angular/material/form-field';
   styleUrl: './investimentos.scss',
   standalone: true
 })
-export class Investimentos {
+export class Investimentos implements OnInit{
   fb = inject(FormBuilder);
+
+  investimentosService = inject(InvestimentosServices);
 
   form = this.fb.nonNullable.group({
     nome: ['', Validators.required],
-    categoria: ['', Validators.required],
+    tipo: ['', Validators.required],
     descricao: [''],
     data: [new Date(), Validators.required],
-    valor: [0, [Validators.required]]
+    valor: [0],
+    quantidade: [0]
   });
 
   tipos = signal<String[]>([]);
@@ -69,6 +73,16 @@ export class Investimentos {
       this.form.markAllAsTouched();
       return;
     }
+    this.investimentosService.salvar({
+      name: this.form.getRawValue().nome,
+      description: this.form.getRawValue().descricao,
+      type: this.form.getRawValue().tipo,
+      totalValue: this.form.getRawValue().valor,
+      amount: this.form.getRawValue().quantidade,
+      date: this.form.getRawValue().data,
+      userId: '0199812b-ee85-74a1-8bb3-05d2185f93fc'
+    });
+
   }
 
 }

@@ -14,7 +14,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Tipo</mat-label>
-        <mat-select formControlName="categoria">
+        <mat-select formControlName="tipo">
           @for (t of tipos(); track t) {
             <mat-option [value]="t">
               {{ t }}
@@ -38,6 +38,12 @@
       <mat-form-field floatLabel="always">
         <mat-label>Valor</mat-label>
         <input matInput type="number" class="example-right-align" formControlName="valor"/>
+        <span matTextPrefix>$&nbsp;</span>
+      </mat-form-field>
+
+      <mat-form-field floatLabel="always">
+        <mat-label>Quantidade</mat-label>
+        <input matInput type="number" class="example-right-align" formControlName="quantidade"/>
         <span matTextPrefix>$&nbsp;</span>
       </mat-form-field>
     </div>
