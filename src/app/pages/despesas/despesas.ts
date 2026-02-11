@@ -35,7 +35,7 @@ export class DespesasComponent implements OnInit {
 
   form = this.fb.nonNullable.group({
     nome: ['', Validators.required],
-    tipo: ['', Validators.required],
+    categoria: ['', Validators.required],
     descricao: [''],
     data: [new Date(), Validators.required],
     valor: [0, [Validators.required]]
@@ -58,7 +58,7 @@ export class DespesasComponent implements OnInit {
     this.despesasService.salvar({
       id: null,
       name: this.form.getRawValue().nome.trim(),
-      category: this.form.getRawValue().tipo.trim(),
+      category: this.form.getRawValue().categoria.trim(),
       date: this.form.getRawValue().data,
       description: this.form.getRawValue().descricao,
       value: this.form.getRawValue().valor
@@ -66,7 +66,7 @@ export class DespesasComponent implements OnInit {
       next: () => {
         this.form.reset({
           nome: ' ',
-          tipo: ' ',
+          categoria: ' ',
           descricao: '',
           data: new Date(),
           valor: 0
