@@ -1,4 +1,5 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 export interface Provento {
   id: string | null;
@@ -6,7 +7,7 @@ export interface Provento {
   description: string;
   type: string;
   value: number;
-  date: Date;
+  date: string;
   userId: string;
 }
 
@@ -15,8 +16,12 @@ export interface Provento {
 })
 export class ProventosService {
 
+  private http = inject(HttpClient);
+  private readonly API = 'http://localhost:8082/income/createMany';
+
   salvar(provento: Provento) {
     console.log(provento);
+    return this.http.post(this.API, [provento]);
   }
 
 }

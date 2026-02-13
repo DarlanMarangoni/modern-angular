@@ -81,8 +81,20 @@ export class Investimentos implements OnInit{
       amount: this.form.getRawValue().quantidade,
       date: this.form.getRawValue().data,
       userId: '0199812b-ee85-74a1-8bb3-05d2185f93fc'
+    }).subscribe({
+      next: () => {
+        this.form.reset({
+          nome: ' ',
+          tipo: ' ',
+          descricao: '',
+          data: new Date(),
+          valor: 0,
+          quantidade: 0
+        });
+        this.form.clearValidators();
+      },
+      error: () => alert('Erro ao salvar')
     });
-
   }
 
 }

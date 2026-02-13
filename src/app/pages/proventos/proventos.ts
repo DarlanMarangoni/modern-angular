@@ -78,9 +78,23 @@ export class Proventos implements OnInit {
       name: this.form.getRawValue().nome,
       description: this.form.getRawValue().descricao,
       value: this.form.getRawValue().valor,
-      date: this.form.getRawValue().data,
+      date: this.form.getRawValue().data.toLocaleDateString('en-CA', {
+        timeZone: 'America/Sao_Paulo'
+      }),
       type: this.form.getRawValue().tipo,
       userId: '0199812b-ee85-74a1-8bb3-05d2185f93fc'
-    })
+    }).subscribe({
+      next: () => {
+        this.form.reset({
+          nome: ' ',
+          tipo: ' ',
+          descricao: '',
+          data: new Date(),
+          valor: 0
+        });
+        this.form.clearValidators();
+      },
+      error: () => alert('Erro ao salvar')
+    });
   }
 }
