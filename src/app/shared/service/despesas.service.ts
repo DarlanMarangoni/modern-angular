@@ -16,7 +16,7 @@ export interface Despesa {
 export class DespesasService {
 
   private http = inject(HttpClient);
-  private readonly API = 'http://192.168.3.17:8081/expenses';
+  private readonly API = 'http://darlan-ms-7e24.tail547bb5.ts.net:8081/expenses';
 
   salvar(despesa: Despesa) {
     return this.http.post(this.API, despesa);

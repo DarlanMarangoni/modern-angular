@@ -17,7 +17,7 @@ export interface Investimento {
 export class InvestimentosServices {
 
   private http = inject(HttpClient);
-  private readonly API = 'http://localhost:8082/investments/createMany';
+  private readonly API = 'http://darlan-ms-7e24.tail547bb5.ts.net:8082/investments/createMany';
 
   salvar(investimento: Investimento) {
     console.log(investimento);

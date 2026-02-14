@@ -46,7 +46,10 @@ export class DespesasComponent implements OnInit {
   ngOnInit(): void {
     this.categoriesService.getCategories()
       .subscribe({
-        next: value => this.categorias.set(value)
+        next: (categories) => {
+          this.categorias = signal(categories);
+        },
+        error: (err  ) => alert('Erro ao carregar categorias')
       });
   }
 

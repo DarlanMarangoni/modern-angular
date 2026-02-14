@@ -12,7 +12,7 @@ export interface Category {
 export class CategoryService {
 
   private http = inject(HttpClient);
-  private readonly API = 'http://192.168.3.17:8081/categories';
+  private readonly API = 'http://darlan-ms-7e24.tail547bb5.ts.net:8081/categories';
 
   getCategories() {
     return this.http.get<Category[]>(this.API);

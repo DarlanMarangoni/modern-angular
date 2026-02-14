@@ -17,7 +17,7 @@ export interface Provento {
 export class ProventosService {
 
   private http = inject(HttpClient);
-  private readonly API = 'http://localhost:8082/income/createMany';
+  private readonly API = 'http://darlan-ms-7e24.tail547bb5.ts.net:8082/income/createMany';
 
   salvar(provento: Provento) {
     console.log(provento);
