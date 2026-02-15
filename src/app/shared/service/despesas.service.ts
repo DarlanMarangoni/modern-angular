@@ -10,6 +10,11 @@ export interface Despesa {
   category: String;
 }
 
+export interface ExpenseYearMonth {
+  month: string;
+  total: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,6 +25,10 @@ export class DespesasService {
 
   salvar(despesa: Despesa) {
     return this.http.post(this.API, despesa);
+  }
+
+  listByMonth() {
+    return this.http.get<ExpenseYearMonth[]>(`${this.API}`);
   }
 
 }

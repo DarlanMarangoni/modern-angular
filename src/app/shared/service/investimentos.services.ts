@@ -1,5 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {YearMonth} from './proventos.service';
 
 export interface Investimento {
   name: string;
@@ -17,11 +18,16 @@ export interface Investimento {
 export class InvestimentosServices {
 
   private http = inject(HttpClient);
-  private readonly API = 'http://darlan-ms-7e24.tail547bb5.ts.net:8082/investments/createMany';
+  private readonly API = 'http://darlan-ms-7e24.tail547bb5.ts.net:8082/investments';
 
   salvar(investimento: Investimento) {
     console.log(investimento);
-    return this.http.post(this.API, [investimento]);
+    return this.http.post(`${this.API}/createMany`, [investimento]);
   }
+
+  listByMonth() {
+    return this.http.get<YearMonth[]>(`${this.API}/0199812b-ee85-74a1-8bb3-05d2185f93fc/listByMonth`);
+  }
+
 
 }
