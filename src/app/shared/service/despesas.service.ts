@@ -31,4 +31,12 @@ export class DespesasService {
     return this.http.get<ExpenseYearMonth[]>(`${this.API}`);
   }
 
+  findAll() {
+    return this.http.get<Despesa[]>(`${this.API}`);
+  }
+
+  deleteById(id: string) {
+    return this.http.delete(`${this.API}/${id}`);
+  }
+
 }

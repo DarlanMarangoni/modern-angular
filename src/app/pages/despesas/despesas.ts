@@ -9,7 +9,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {Category, CategoryService} from '../../shared/service/category.service';
-import {DespesasService} from '../../shared/service/despesas.service';
+import {Despesa, DespesasService} from '../../shared/service/despesas.service';
+import {Table} from '../../shared/components/table/table';
 
 @Component({
   selector: 'app-despesas',
@@ -22,7 +23,8 @@ import {DespesasService} from '../../shared/service/despesas.service';
     MatSelectModule,
     MatButtonModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    Table
   ],
   templateUrl: './despesas.html',
   styleUrls: ['./despesas.scss']
@@ -43,13 +45,27 @@ export class DespesasComponent implements OnInit {
 
   categorias = signal<Category[]>([]);
 
+  despesas = signal<Despesa[]>([]);
+
   ngOnInit(): void {
     this.categoriesService.getCategories()
       .subscribe({
         next: (categories) => {
-          this.categorias = signal(categories);
+          this.categorias.set(categories);
         },
-        error: (err  ) => alert('Erro ao carregar categorias')
+        error: () => alert('Erro ao carregar categorias')
+      });
+
+    this.buscaDespesas();
+  }
+
+  private buscaDespesas() {
+    this.despesasService.findAll()
+      .subscribe({
+        next: value => {
+          this.despesas.set(value);
+        },
+        error: () => alert('Erro ao carregar despesas')
       });
   }
 
@@ -75,6 +91,7 @@ export class DespesasComponent implements OnInit {
           valor: 0
         });
         this.form.clearValidators();
+        this.buscaDespesas();
       },
       error: () => alert('Erro ao salvar')
     });

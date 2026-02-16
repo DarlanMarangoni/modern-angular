@@ -38,7 +38,7 @@
       <mat-form-field floatLabel="always">
         <mat-label>Valor</mat-label>
         <input matInput type="number" class="example-right-align" formControlName="valor"/>
-        <span matTextPrefix>$&nbsp;</span>
+        <span matTextPrefix>R$ </span>
       </mat-form-field>
     </div>
     <div class="container">
@@ -47,5 +47,11 @@
       </button>
     </div>
   </form>
+</div>
+<div class="table-container" id="table-expense">
+  <app-table [values]="despesas()"
+             [headers]="['Nome', 'Categoria', 'Valor', 'Data']"
+             [title]="'Despesas'"
+             [fields]="['name', 'description', 'value', 'date']"/>
 </div>
 
