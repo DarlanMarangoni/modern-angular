@@ -1,0 +1,24 @@
+.main-container {
+  margin: 1rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.form {
+  max-width: 1080px;
+}
+
+mat-form-field {
+  margin-right: 1rem;
+  min-width: 300px;
+}
+
+@media (max-width: 1080px) {
+  mat-form-field {
+    width: 100%;
+  }
+
+  #table-expense {
+    display: none;
+  }
+}

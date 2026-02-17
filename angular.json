@@ -67,7 +67,13 @@
               "buildTarget": "personal-finance-app:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "host": "0.0.0.0",
+            "allowedHosts": [
+              "darlan-ms-7e24.tail547bb5.ts.net"
+            ]
+          }
         },
         "test": {
           "builder": "@angular/build:unit-test"

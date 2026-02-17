@@ -1,6 +1,7 @@
 import {Routes} from '@angular/router';
-import {Home} from './home/home';
-import {User} from './user/user';
+import {Home} from './pages/home/home';
+import {Investimentos} from './pages/investimentos/investimentos';
+import {Proventos} from './pages/proventos/proventos';
 
 export const routes: Routes = [
   {
@@ -9,8 +10,20 @@ export const routes: Routes = [
     component: Home,
   },
   {
-    path: 'user',
-    title: 'App User Page',
-    component: User
+    path: 'despesas',
+    loadComponent: () =>
+      import('./pages/despesas/despesas')
+        .then(m => m.DespesasComponent)
   },
+  {
+    path: 'investimentos',
+    title: 'App Investimentos',
+    component: Investimentos,
+  },
+  {
+    path: 'proventos',
+    title: 'App Proventos',
+    component: Proventos,
+  }
+
 ];

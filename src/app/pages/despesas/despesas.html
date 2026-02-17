@@ -1,0 +1,58 @@
+<div class="main-container">
+  <form [formGroup]="form" (ngSubmit)="salvar()" class="form">
+    <div class="title"><h2 style="text-align: center">Minhas Despesas</h2></div>
+    <div class="container">
+      <mat-form-field>
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome"/>
+        @if (form.controls.nome.invalid &&
+        (form.controls.nome.touched || form.controls.nome.dirty)) {
+          <mat-error>
+            Nome é obrigatório
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Categoria</mat-label>
+        <mat-select formControlName="categoria">
+          @for (c of categorias(); track c.id) {
+            <mat-option [value]="c.name">
+              {{ c.name }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Descrição</mat-label>
+        <input matInput formControlName="descricao"/>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Data</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="data">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field floatLabel="always">
+        <mat-label>Valor</mat-label>
+        <input matInput type="number" class="example-right-align" formControlName="valor"/>
+        <span matTextPrefix>R$ </span>
+      </mat-form-field>
+    </div>
+    <div class="container">
+      <button mat-raised-button color="primary" type="submit">
+        Salvar Despesa
+      </button>
+    </div>
+  </form>
+</div>
+<div class="table-container" id="table-expense">
+  <app-table [values]="despesas()"
+             [headers]="['Nome', 'Categoria', 'Valor', 'Data']"
+             [title]="'Despesas'"
+             [fields]="['name', 'description', 'value', 'date']"
+             (deleteItem)="deleteById($event)"/>
+</div>
+
