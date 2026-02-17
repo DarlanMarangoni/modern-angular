@@ -22,6 +22,8 @@ import {Category} from '../../shared/service/category.service';
 import {CommonModule} from '@angular/common';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {ProventosService} from '../../shared/service/proventos.service';
+import {Table} from '../../shared/components/table/table';
+import {Despesa} from '../../shared/service/despesas.service';
 
 @Component({
   selector: 'app-proventos',
@@ -44,7 +46,8 @@ import {ProventosService} from '../../shared/service/proventos.service';
     MatSelectModule,
     MatButtonModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    Table
   ],
   templateUrl: './proventos.html',
   styleUrl: './proventos.scss',
@@ -64,8 +67,11 @@ export class Proventos implements OnInit {
 
   tipos = signal<String[]>([]);
 
+  proventos = signal<any[]>([]);
+
   ngOnInit(): void {
     this.tipos = signal(['Acoes', 'Fundo Imobiliario', 'Renda Fixa']);
+    this.buscaProventos();
   }
 
   salvar() {
@@ -96,5 +102,24 @@ export class Proventos implements OnInit {
       },
       error: () => alert('Erro ao salvar')
     });
+
+    this.buscaProventos();
+  }
+
+  protected deleteById($event: any) {
+    this.proventosService.deleteById($event).subscribe({
+      next: () => this.buscaProventos(),
+      error: () => alert('Erro ao deletar')
+    })
+  }
+
+  private buscaProventos() {
+    this.proventosService.findAll()
+      .subscribe({
+        next: value => {
+          this.proventos.set(value);
+        },
+        error: () => alert('Erro ao carregar despesas')
+      });
   }
 }

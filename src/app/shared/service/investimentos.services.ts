@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {YearMonth} from './proventos.service';
+import {Provento, YearMonth} from './proventos.service';
 
 export interface Investimento {
   name: string;
@@ -29,5 +29,12 @@ export class InvestimentosServices {
     return this.http.get<YearMonth[]>(`${this.API}/0199812b-ee85-74a1-8bb3-05d2185f93fc/listByMonth`);
   }
 
+  findAll() {
+    return this.http.get<Investimento[]>(`${this.API}`);
+  }
+
+  deleteById(id: string) {
+    return this.http.delete(`${this.API}/${id}`);
+  }
 
 }

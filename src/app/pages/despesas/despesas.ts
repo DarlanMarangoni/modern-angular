@@ -97,4 +97,10 @@ export class DespesasComponent implements OnInit {
     });
   }
 
+  protected deleteById($event: any) {
+    this.despesasService.deleteById($event).subscribe({
+      next: () => this.buscaDespesas(),
+      error: () => alert('Erro ao deletar')
+    })
+  }
 }

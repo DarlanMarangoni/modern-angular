@@ -28,7 +28,7 @@ export class DespesasService {
   }
 
   listByMonth() {
-    return this.http.get<ExpenseYearMonth[]>(`${this.API}`);
+    return this.http.get<ExpenseYearMonth[]>(`${this.API}/listByMonth`);
   }
 
   findAll() {

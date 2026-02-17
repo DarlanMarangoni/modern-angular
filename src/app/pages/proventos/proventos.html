@@ -48,4 +48,12 @@
     </div>
   </form>
 </div>
+<div class="table-container" id="table-expense">
+  <app-table [values]="proventos()"
+             [headers]="['Nome', 'Tipo', 'Valor', 'Data']"
+             [title]="'Proventos'"
+             [fields]="['name', 'type', 'value', 'date']"
+             (deleteItem)="deleteById($event)"/>
+</div>
+
 

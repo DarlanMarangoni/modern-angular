@@ -33,4 +33,11 @@ export class ProventosService {
     return this.http.get<YearMonth[]>(`${this.API}/0199812b-ee85-74a1-8bb3-05d2185f93fc/listByMonth`);
   }
 
+  findAll() {
+    return this.http.get<Provento[]>(`${this.API}`);
+  }
+
+  deleteById(id: string) {
+    return this.http.delete(`${this.API}/${id}`);
+  }
 }

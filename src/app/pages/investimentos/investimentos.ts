@@ -19,7 +19,8 @@ import {MatNativeDateModule, MatOption} from '@angular/material/core';
 import {MatSelect, MatSelectModule} from '@angular/material/select';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {InvestimentosServices} from '../../shared/service/investimentos.services';
+import {Investimento, InvestimentosServices} from '../../shared/service/investimentos.services';
+import {Table} from '../../shared/components/table/table';
 
 @Component({
   selector: 'app-investimentos',
@@ -42,7 +43,8 @@ import {InvestimentosServices} from '../../shared/service/investimentos.services
     MatSelectModule,
     MatButtonModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    Table
   ],
   templateUrl: './investimentos.html',
   styleUrl: './investimentos.scss',
@@ -64,8 +66,12 @@ export class Investimentos implements OnInit{
 
   tipos = signal<String[]>([]);
 
+  investimentos = signal<Investimento[]>([]);
+
   ngOnInit(): void {
     this.tipos = signal(['Acoes', 'Fundo Imobiliario', 'Renda Fixa', 'Previdencia Privada', 'CDB', 'FGTS', 'Tesouro Direto', 'Fundo de Investimento']);
+
+    this.buscaInvestimentos();
   }
 
   salvar() {
@@ -95,6 +101,23 @@ export class Investimentos implements OnInit{
       },
       error: () => alert('Erro ao salvar')
     });
+    this.buscaInvestimentos();
   }
 
+  protected deleteById($event: any) {
+    this.investimentosService.deleteById($event).subscribe({
+      next: () => this.buscaInvestimentos(),
+      error: () => alert('Erro ao deletar')
+    })
+  }
+
+  private buscaInvestimentos() {
+    this.investimentosService.findAll()
+      .subscribe({
+        next: value => {
+          this.investimentos.set(value);
+        },
+        error: () => alert('Erro ao carregar despesas')
+      });
+  }
 }

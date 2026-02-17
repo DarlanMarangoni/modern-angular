@@ -52,6 +52,7 @@
   <app-table [values]="despesas()"
              [headers]="['Nome', 'Categoria', 'Valor', 'Data']"
              [title]="'Despesas'"
-             [fields]="['name', 'description', 'value', 'date']"/>
+             [fields]="['name', 'description', 'value', 'date']"
+             (deleteItem)="deleteById($event)"/>
 </div>
 
