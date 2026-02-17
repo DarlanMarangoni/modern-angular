@@ -21,7 +21,6 @@ export class InvestimentosServices {
   private readonly API = 'http://darlan-ms-7e24.tail547bb5.ts.net:8082/investments';
 
   salvar(investimento: Investimento) {
-    console.log(investimento);
     return this.http.post(`${this.API}/createMany`, [investimento]);
   }
 

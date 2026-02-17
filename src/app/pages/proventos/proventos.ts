@@ -18,12 +18,9 @@ import {
 import {MatNativeDateModule, MatOption} from '@angular/material/core';
 import {MatSelect, MatSelectModule} from '@angular/material/select';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Category} from '../../shared/service/category.service';
-import {CommonModule} from '@angular/common';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {ProventosService} from '../../shared/service/proventos.service';
+import {Provento, ProventosService} from '../../shared/service/proventos.service';
 import {Table} from '../../shared/components/table/table';
-import {Despesa} from '../../shared/service/despesas.service';
 
 @Component({
   selector: 'app-proventos',
@@ -67,7 +64,7 @@ export class Proventos implements OnInit {
 
   tipos = signal<String[]>([]);
 
-  proventos = signal<any[]>([]);
+  proventos = signal<Provento[]>([]);
 
   ngOnInit(): void {
     this.tipos = signal(['Acoes', 'Fundo Imobiliario', 'Renda Fixa']);
@@ -99,18 +96,20 @@ export class Proventos implements OnInit {
           valor: 0
         });
         this.form.clearValidators();
+
+        this.buscaProventos();
       },
       error: () => alert('Erro ao salvar')
     });
 
-    this.buscaProventos();
   }
 
   protected deleteById($event: any) {
     this.proventosService.deleteById($event).subscribe({
       next: () => this.buscaProventos(),
       error: () => alert('Erro ao deletar')
-    })
+    });
+    this.buscaProventos();
   }
 
   private buscaProventos() {

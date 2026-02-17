@@ -98,10 +98,12 @@ export class Investimentos implements OnInit{
           quantidade: 0
         });
         this.form.clearValidators();
+
+        this.buscaInvestimentos();
+
       },
       error: () => alert('Erro ao salvar')
     });
-    this.buscaInvestimentos();
   }
 
   protected deleteById($event: any) {

@@ -1,5 +1,4 @@
 import {Component, input, output} from '@angular/core';
-import {Despesa} from '../../service/despesas.service';
 import {CurrencyPipe, DatePipe} from '@angular/common';
 import {TableModule} from 'primeng/table';
 import {Button} from 'primeng/button';
