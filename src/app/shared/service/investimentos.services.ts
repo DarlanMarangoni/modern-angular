@@ -4,6 +4,7 @@ import {YearMonth} from './proventos.service';
 import {CURRENT_USER_ID} from '../current-user';
 
 export interface Investimento {
+  id?: string;
   name: string;
   description: string;
   type: string;
