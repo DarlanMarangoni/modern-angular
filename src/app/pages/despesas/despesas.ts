@@ -2,12 +2,13 @@ import {Component, inject, OnInit, signal} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import {InputText} from 'primeng/inputtext';
+import {Select} from 'primeng/select';
+import {DatePicker} from 'primeng/datepicker';
+import {InputNumber} from 'primeng/inputnumber';
+import {FloatLabel} from 'primeng/floatlabel';
+import {Message} from 'primeng/message';
+import {Button} from 'primeng/button';
 import {Category, CategoryService} from '../../shared/service/category.service';
 import {Despesa, DespesasService} from '../../shared/service/despesas.service';
 import {Table} from '../../shared/components/table/table';
@@ -18,12 +19,13 @@ import {Table} from '../../shared/components/table/table';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
+    InputText,
+    Select,
+    DatePicker,
+    InputNumber,
+    FloatLabel,
+    Message,
+    Button,
     Table
   ],
   templateUrl: './despesas.html',

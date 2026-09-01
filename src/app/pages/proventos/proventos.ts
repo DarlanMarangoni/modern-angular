@@ -1,49 +1,26 @@
 import {Component, inject, OnInit, signal} from '@angular/core';
-import {MatButton, MatButtonModule} from '@angular/material/button';
-import {
-  MatDatepicker,
-  MatDatepickerInput,
-  MatDatepickerModule,
-  MatDatepickerToggle
-} from '@angular/material/datepicker';
-import {
-  MatError,
-  MatFormField,
-  MatInput,
-  MatInputModule,
-  MatLabel,
-  MatPrefix,
-  MatSuffix
-} from '@angular/material/input';
-import {MatNativeDateModule, MatOption} from '@angular/material/core';
-import {MatSelect, MatSelectModule} from '@angular/material/select';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {InputText} from 'primeng/inputtext';
+import {Select} from 'primeng/select';
+import {DatePicker} from 'primeng/datepicker';
+import {InputNumber} from 'primeng/inputnumber';
+import {FloatLabel} from 'primeng/floatlabel';
+import {Message} from 'primeng/message';
+import {Button} from 'primeng/button';
 import {Provento, ProventosService} from '../../shared/service/proventos.service';
 import {Table} from '../../shared/components/table/table';
 
 @Component({
   selector: 'app-proventos',
   imports: [
-    MatButton,
-    MatDatepicker,
-    MatDatepickerInput,
-    MatDatepickerToggle,
-    MatError,
-    MatFormField,
-    MatInput,
-    MatLabel,
-    MatOption,
-    MatPrefix,
-    MatSelect,
-    MatSuffix,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
+    InputText,
+    Select,
+    DatePicker,
+    InputNumber,
+    FloatLabel,
+    Message,
+    Button,
     Table
   ],
   templateUrl: './proventos.html',

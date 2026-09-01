@@ -8,13 +8,20 @@
   max-width: 1080px;
 }
 
-mat-form-field {
-  margin-right: 1rem;
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.field {
   min-width: 300px;
 }
 
 @media (max-width: 1080px) {
-  mat-form-field {
+  .field {
     width: 100%;
   }
 

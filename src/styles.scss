@@ -1,39 +1,18 @@
-@use '@angular/material' as mat;
 @import "primeicons/primeicons.css";
 
 html {
   height: 100%;
   color-scheme: light;
 
-  @include mat.theme((
-    color: (
-      theme-type: light,
-      primary: mat.$spring-green-palette,
-      tertiary: mat.$spring-green-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
-
   &.app-dark {
     color-scheme: dark;
-
-    @include mat.theme((
-      color: (
-        theme-type: dark,
-        primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
-      ),
-      typography: Roboto,
-      density: 0,
-    ));
   }
 }
 
 body {
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
+  background-color: var(--p-content-background);
+  color: var(--p-text-color);
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   height: 100%;
 }
@@ -42,4 +21,20 @@ body {
   margin: 1rem;
   display: flex;
   justify-content: space-around;
+}
+
+.field {
+  min-width: 300px;
+
+  .p-floatlabel {
+    display: block;
+    width: 100%;
+  }
+
+  input[pInputText],
+  .p-select,
+  .p-datepicker,
+  .p-inputnumber {
+    width: 100%;
+  }
 }
