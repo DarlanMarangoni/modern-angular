@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {NavbarComponent} from './layout/navbar/navbar';
+import {Toast} from 'primeng/toast';
+import {Navbar} from './layout/navbar/navbar';
 
 
 @Component({
@@ -9,7 +10,8 @@ import {NavbarComponent} from './layout/navbar/navbar';
   templateUrl: './app.html',
   imports: [
     RouterOutlet,
-    NavbarComponent
+    Navbar,
+    Toast
   ]
 })
 export class App implements OnInit {

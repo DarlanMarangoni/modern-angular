@@ -1,29 +1,33 @@
-<mat-sidenav-container class="container">
+<p-toolbar styleClass="app-toolbar">
+  <ng-template #start>
+    <p-button
+      icon="pi pi-bars"
+      [text]="true"
+      [rounded]="true"
+      severity="secondary"
+      ariaLabel="Abrir menu"
+      (onClick)="drawerVisible = true"
+    />
+    <span class="logo">Finanças pessoais</span>
+  </ng-template>
 
-  <mat-sidenav #sidenav mode="over">
-    <mat-nav-list>
-      <a mat-list-item routerLink="/" (click)="sidenav.close()">Home</a>
-      <a mat-list-item routerLink="/despesas" (click)="sidenav.close()">Despesas</a>
-      <a mat-list-item routerLink="/investimentos" (click)="sidenav.close()">Investimentos</a>
-      <a mat-list-item routerLink="/proventos" (click)="sidenav.close()">Proventos</a>
-    </mat-nav-list>
-  </mat-sidenav>
+  <ng-template #end>
+    <p-button
+      [icon]="themeService.isDark() ? 'pi pi-sun' : 'pi pi-moon'"
+      [text]="true"
+      [rounded]="true"
+      severity="secondary"
+      [ariaLabel]="themeService.isDark() ? 'Ativar tema claro' : 'Ativar tema escuro'"
+      (onClick)="themeService.toggle()"
+    />
+  </ng-template>
+</p-toolbar>
 
-  <mat-sidenav-content>
-
-    <mat-toolbar color="primary">
-      <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-
-      <span class="logo">Finanças pessoais</span>
-
-      <span class="spacer"></span>
-
-    </mat-toolbar>
-
-    <router-outlet></router-outlet>
-
-  </mat-sidenav-content>
-
-</mat-sidenav-container>
+<p-drawer [(visible)]="drawerVisible" position="left" header="Finanças pessoais">
+  <nav class="nav-list">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="drawerVisible = false">Home</a>
+    <a routerLink="/despesas" routerLinkActive="active" (click)="drawerVisible = false">Despesas</a>
+    <a routerLink="/investimentos" routerLinkActive="active" (click)="drawerVisible = false">Investimentos</a>
+    <a routerLink="/proventos" routerLinkActive="active" (click)="drawerVisible = false">Proventos</a>
+  </nav>
+</p-drawer>

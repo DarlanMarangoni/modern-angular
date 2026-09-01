@@ -1,5 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {CURRENT_USER_ID} from '../current-user';
 
 export interface Provento {
   id: string | null;
@@ -25,12 +26,11 @@ export class ProventosService {
   private readonly API = 'http://darlan-ms-7e24.tail547bb5.ts.net:8082/income';
 
   salvar(provento: Provento) {
-    console.log(provento);
     return this.http.post(`${this.API}/createMany`, [provento]);
   }
 
   listByMonth() {
-    return this.http.get<YearMonth[]>(`${this.API}/0199812b-ee85-74a1-8bb3-05d2185f93fc/listByMonth`);
+    return this.http.get<YearMonth[]>(`${this.API}/${CURRENT_USER_ID}/listByMonth`);
   }
 
   findAll() {

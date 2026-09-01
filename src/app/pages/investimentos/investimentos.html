@@ -2,55 +2,56 @@
   <form [formGroup]="form" (ngSubmit)="salvar()" class="form">
     <div class="title"><h2 style="text-align: center">Meus Investimentos</h2></div>
     <div class="container">
-      <mat-form-field>
-        <mat-label>Nome</mat-label>
-        <input matInput formControlName="nome"/>
+      <div class="field">
+        <p-floatlabel variant="on">
+          <input pInputText id="nome" formControlName="nome"/>
+          <label for="nome">Nome</label>
+        </p-floatlabel>
         @if (form.controls.nome.invalid &&
         (form.controls.nome.touched || form.controls.nome.dirty)) {
-          <mat-error>
+          <p-message severity="error" size="small" variant="simple">
             Nome é obrigatório
-          </mat-error>
+          </p-message>
         }
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Tipo</mat-label>
-        <mat-select formControlName="tipo">
-          @for (t of tipos(); track t) {
-            <mat-option [value]="t">
-              {{ t }}
-            </mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+      </div>
 
-      <mat-form-field>
-        <mat-label>Descrição</mat-label>
-        <input matInput formControlName="descricao"/>
-      </mat-form-field>
+      <div class="field">
+        <p-floatlabel variant="on">
+          <p-select inputId="tipo" formControlName="tipo" [options]="tipos()"/>
+          <label for="tipo">Tipo</label>
+        </p-floatlabel>
+      </div>
 
-      <mat-form-field>
-        <mat-label>Data</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="data">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
+      <div class="field">
+        <p-floatlabel variant="on">
+          <input pInputText id="descricao" formControlName="descricao"/>
+          <label for="descricao">Descrição</label>
+        </p-floatlabel>
+      </div>
 
-      <mat-form-field floatLabel="always">
-        <mat-label>Valor</mat-label>
-        <input matInput type="number" class="example-right-align" formControlName="valor"/>
-        <span matTextPrefix>$&nbsp;</span>
-      </mat-form-field>
+      <div class="field">
+        <p-floatlabel variant="on">
+          <p-datepicker inputId="data" formControlName="data" dateFormat="dd/mm/yy" [showIcon]="true" iconDisplay="input"/>
+          <label for="data">Data</label>
+        </p-floatlabel>
+      </div>
 
-      <mat-form-field floatLabel="always">
-        <mat-label>Quantidade</mat-label>
-        <input matInput type="number" class="example-right-align" formControlName="quantidade"/>
-        <span matTextPrefix>$&nbsp;</span>
-      </mat-form-field>
+      <div class="field">
+        <p-floatlabel variant="on">
+          <p-inputnumber inputId="valor" formControlName="valor" mode="currency" currency="BRL" locale="pt-BR"/>
+          <label for="valor">Valor</label>
+        </p-floatlabel>
+      </div>
+
+      <div class="field">
+        <p-floatlabel variant="on">
+          <p-inputnumber inputId="quantidade" formControlName="quantidade"/>
+          <label for="quantidade">Quantidade</label>
+        </p-floatlabel>
+      </div>
     </div>
     <div class="container">
-      <button mat-raised-button color="primary" type="submit">
-        Salvar Investimento
-      </button>
+      <p-button label="Salvar Investimento" type="submit"/>
     </div>
   </form>
 </div>

@@ -1,23 +1,26 @@
-import { Component } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { Toolbar } from 'primeng/toolbar';
+import { Button } from 'primeng/button';
+import { Drawer } from 'primeng/drawer';
+import { ThemeService } from '../../shared/service/theme.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatListModule,
-    RouterModule
+    RouterModule,
+    Toolbar,
+    Button,
+    Drawer
   ],
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.scss']
 })
-export class NavbarComponent {}
+export class Navbar {
+
+  protected readonly themeService = inject(ThemeService);
+
+  protected drawerVisible = false;
+
+}

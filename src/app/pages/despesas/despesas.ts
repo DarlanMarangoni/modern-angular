@@ -2,12 +2,14 @@ import {Component, inject, OnInit, signal} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import {InputText} from 'primeng/inputtext';
+import {Select} from 'primeng/select';
+import {DatePicker} from 'primeng/datepicker';
+import {InputNumber} from 'primeng/inputnumber';
+import {FloatLabel} from 'primeng/floatlabel';
+import {Message} from 'primeng/message';
+import {Button} from 'primeng/button';
+import {MessageService} from 'primeng/api';
 import {Category, CategoryService} from '../../shared/service/category.service';
 import {Despesa, DespesasService} from '../../shared/service/despesas.service';
 import {Table} from '../../shared/components/table/table';
@@ -18,22 +20,24 @@ import {Table} from '../../shared/components/table/table';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
+    InputText,
+    Select,
+    DatePicker,
+    InputNumber,
+    FloatLabel,
+    Message,
+    Button,
     Table
   ],
   templateUrl: './despesas.html',
   styleUrls: ['./despesas.scss']
 })
-export class DespesasComponent implements OnInit {
+export class Despesas implements OnInit {
 
   fb = inject(FormBuilder);
   categoriesService = inject(CategoryService);
   despesasService = inject(DespesasService);
+  messageService = inject(MessageService);
 
   form = this.fb.nonNullable.group({
     nome: ['', Validators.required],
@@ -53,7 +57,7 @@ export class DespesasComponent implements OnInit {
         next: (categories) => {
           this.categorias.set(categories);
         },
-        error: () => alert('Erro ao carregar categorias')
+        error: () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao carregar categorias'})
       });
 
     this.buscaDespesas();
@@ -65,7 +69,7 @@ export class DespesasComponent implements OnInit {
         next: value => {
           this.despesas.set(value);
         },
-        error: () => alert('Erro ao carregar despesas')
+        error: () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao carregar despesas'})
       });
   }
 
@@ -93,14 +97,14 @@ export class DespesasComponent implements OnInit {
         this.form.clearValidators();
         this.buscaDespesas();
       },
-      error: () => alert('Erro ao salvar')
+      error: () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao salvar despesa'})
     });
   }
 
-  protected deleteById($event: any) {
-    this.despesasService.deleteById($event).subscribe({
+  protected deleteById(id: string) {
+    this.despesasService.deleteById(id).subscribe({
       next: () => this.buscaDespesas(),
-      error: () => alert('Erro ao deletar')
+      error: () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao deletar despesa'})
     })
   }
 }
