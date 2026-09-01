@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MessageService } from 'primeng/api';
 
 import { Despesas } from './despesas';
 
@@ -8,7 +9,8 @@ describe('Despesas', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Despesas]
+      imports: [Despesas],
+      providers: [MessageService]
     })
     .compileComponents();
 

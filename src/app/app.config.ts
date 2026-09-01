@@ -4,6 +4,7 @@ import {provideRouter} from '@angular/router';
 import {routes} from './app.routes';
 import {provideHttpClient} from '@angular/common/http';
 import {providePrimeNG} from 'primeng/config';
+import {MessageService} from 'primeng/api';
 import Aura from '@primeuix/themes/aura';
 import {definePreset} from '@primeuix/themes';
 
@@ -71,6 +72,7 @@ export const appConfig: ApplicationConfig = {
           darkModeSelector: '.app-dark'
         }
       }
-    })
+    }),
+    MessageService
   ]
 };

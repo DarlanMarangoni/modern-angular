@@ -1,5 +1,6 @@
 import {Component, inject, OnInit, signal} from '@angular/core';
 import {ChartModule} from 'primeng/chart';
+import {MessageService} from 'primeng/api';
 import {ProventosService, YearMonth} from '../../shared/service/proventos.service';
 import {InvestimentosServices} from '../../shared/service/investimentos.services';
 import {DespesasService} from '../../shared/service/despesas.service';
@@ -20,6 +21,8 @@ export class Home implements OnInit {
   investimentoService = inject(InvestimentosServices);
 
   despesasService = inject(DespesasService);
+
+  messageService = inject(MessageService);
 
   proventosData=  signal<any>({});
 
@@ -50,7 +53,7 @@ export class Home implements OnInit {
             datasets[0].data.push(p.value);
           });
           this.proventosData.set({labels, datasets});
-        }, error: () => alert('Erro ao carregar proventos')
+        }, error: () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao carregar proventos'})
       });
 
     this.investimentoService.listByMonth()
@@ -71,7 +74,7 @@ export class Home implements OnInit {
             labels,
             datasets
           });
-        }, error: () => alert('Erro ao carregar proventos')
+        }, error: () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao carregar investimentos'})
       });
 
     this.despesasService.listByMonth()
@@ -92,7 +95,7 @@ export class Home implements OnInit {
             labels,
             datasets
           });
-        }, error: () => alert('Erro ao carregar proventos')
+        }, error: () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao carregar despesas'})
       });
 
     this.proventosOptions = {

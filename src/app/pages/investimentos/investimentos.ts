@@ -7,8 +7,10 @@ import {InputNumber} from 'primeng/inputnumber';
 import {FloatLabel} from 'primeng/floatlabel';
 import {Message} from 'primeng/message';
 import {Button} from 'primeng/button';
+import {MessageService} from 'primeng/api';
 import {Investimento, InvestimentosServices} from '../../shared/service/investimentos.services';
 import {Table} from '../../shared/components/table/table';
+import {CURRENT_USER_ID} from '../../shared/current-user';
 
 @Component({
   selector: 'app-investimentos',
@@ -32,6 +34,8 @@ export class Investimentos implements OnInit{
 
   investimentosService = inject(InvestimentosServices);
 
+  messageService = inject(MessageService);
+
   form = this.fb.nonNullable.group({
     nome: ['', Validators.required],
     tipo: ['', Validators.required],
@@ -41,12 +45,12 @@ export class Investimentos implements OnInit{
     quantidade: [0]
   });
 
-  tipos = signal<String[]>([]);
+  tipos = signal<string[]>([]);
 
   investimentos = signal<Investimento[]>([]);
 
   ngOnInit(): void {
-    this.tipos = signal(['Acoes', 'Fundo Imobiliario', 'Renda Fixa', 'Previdencia Privada', 'CDB', 'FGTS', 'Tesouro Direto', 'Fundo de Investimento']);
+    this.tipos.set(['Acoes', 'Fundo Imobiliario', 'Renda Fixa', 'Previdencia Privada', 'CDB', 'FGTS', 'Tesouro Direto', 'Fundo de Investimento']);
 
     this.buscaInvestimentos();
   }
@@ -63,7 +67,7 @@ export class Investimentos implements OnInit{
       totalValue: this.form.getRawValue().valor,
       amount: this.form.getRawValue().quantidade,
       date: this.form.getRawValue().data,
-      userId: '0199812b-ee85-74a1-8bb3-05d2185f93fc'
+      userId: CURRENT_USER_ID
     }).subscribe({
       next: () => {
         this.form.reset({
@@ -79,14 +83,14 @@ export class Investimentos implements OnInit{
         this.buscaInvestimentos();
 
       },
-      error: () => alert('Erro ao salvar')
+      error: () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao salvar investimento'})
     });
   }
 
-  protected deleteById($event: any) {
-    this.investimentosService.deleteById($event).subscribe({
+  protected deleteById(id: string) {
+    this.investimentosService.deleteById(id).subscribe({
       next: () => this.buscaInvestimentos(),
-      error: () => alert('Erro ao deletar')
+      error: () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao deletar investimento'})
     })
   }
 
@@ -96,7 +100,7 @@ export class Investimentos implements OnInit{
         next: value => {
           this.investimentos.set(value);
         },
-        error: () => alert('Erro ao carregar despesas')
+        error: () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao carregar investimentos'})
       });
   }
 }

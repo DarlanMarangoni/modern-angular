@@ -17,7 +17,7 @@ import { ThemeService } from '../../shared/service/theme.service';
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.scss']
 })
-export class NavbarComponent {
+export class Navbar {
 
   protected readonly themeService = inject(ThemeService);
 

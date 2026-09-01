@@ -7,8 +7,10 @@ import {InputNumber} from 'primeng/inputnumber';
 import {FloatLabel} from 'primeng/floatlabel';
 import {Message} from 'primeng/message';
 import {Button} from 'primeng/button';
+import {MessageService} from 'primeng/api';
 import {Provento, ProventosService} from '../../shared/service/proventos.service';
 import {Table} from '../../shared/components/table/table';
+import {CURRENT_USER_ID} from '../../shared/current-user';
 
 @Component({
   selector: 'app-proventos',
@@ -31,6 +33,8 @@ export class Proventos implements OnInit {
 
   proventosService = inject(ProventosService);
 
+  messageService = inject(MessageService);
+
   form = this.fb.nonNullable.group({
     nome: ['', Validators.required],
     tipo: ['', Validators.required],
@@ -39,12 +43,12 @@ export class Proventos implements OnInit {
     valor: [0, [Validators.required]]
   });
 
-  tipos = signal<String[]>([]);
+  tipos = signal<string[]>([]);
 
   proventos = signal<Provento[]>([]);
 
   ngOnInit(): void {
-    this.tipos = signal(['Acoes', 'Fundo Imobiliario', 'Renda Fixa']);
+    this.tipos.set(['Acoes', 'Fundo Imobiliario', 'Renda Fixa']);
     this.buscaProventos();
   }
 
@@ -62,7 +66,7 @@ export class Proventos implements OnInit {
         timeZone: 'America/Sao_Paulo'
       }),
       type: this.form.getRawValue().tipo,
-      userId: '0199812b-ee85-74a1-8bb3-05d2185f93fc'
+      userId: CURRENT_USER_ID
     }).subscribe({
       next: () => {
         this.form.reset({
@@ -76,17 +80,16 @@ export class Proventos implements OnInit {
 
         this.buscaProventos();
       },
-      error: () => alert('Erro ao salvar')
+      error: () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao salvar provento'})
     });
 
   }
 
-  protected deleteById($event: any) {
-    this.proventosService.deleteById($event).subscribe({
+  protected deleteById(id: string) {
+    this.proventosService.deleteById(id).subscribe({
       next: () => this.buscaProventos(),
-      error: () => alert('Erro ao deletar')
+      error: () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao deletar provento'})
     });
-    this.buscaProventos();
   }
 
   private buscaProventos() {
@@ -95,7 +98,7 @@ export class Proventos implements OnInit {
         next: value => {
           this.proventos.set(value);
         },
-        error: () => alert('Erro ao carregar despesas')
+        error: () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao carregar proventos'})
       });
   }
 }
