@@ -20,6 +20,14 @@
 
       <span class="spacer"></span>
 
+      <button
+        mat-icon-button
+        (click)="themeService.toggle()"
+        [attr.aria-label]="themeService.isDark() ? 'Ativar tema claro' : 'Ativar tema escuro'"
+      >
+        <mat-icon>{{ themeService.isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      </button>
+
     </mat-toolbar>
 
     <router-outlet></router-outlet>

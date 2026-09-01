@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
+import { ThemeService } from '../../shared/service/theme.service';
 
 @Component({
   selector: 'app-navbar',
@@ -20,4 +21,8 @@ import { RouterModule } from '@angular/router';
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.scss']
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+
+  protected readonly themeService = inject(ThemeService);
+
+}
