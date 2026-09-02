@@ -1,6 +1,7 @@
 import {Component, input, output} from '@angular/core';
 import {CurrencyPipe, DatePipe} from '@angular/common';
 import {TableModule} from 'primeng/table';
+import type {TableLazyLoadEvent} from 'primeng/table';
 import {Button} from 'primeng/button';
 
 @Component({
@@ -25,9 +26,27 @@ export class Table {
 
   title = input<string>('');
 
+  totalRecords = input<number>(0);
+
+  rows = input<number>(10);
+
   deleteItem = output<string>();
+
+  editItem = output<string>();
+
+  pageChange = output<{ page: number; size: number }>();
 
   protected delete(id: string) {
     this.deleteItem.emit(id);
+  }
+
+  protected edit(id: string) {
+    this.editItem.emit(id);
+  }
+
+  protected onLazyLoad(event: TableLazyLoadEvent) {
+    const size = event.rows ?? this.rows();
+    const page = Math.floor((event.first ?? 0) / size);
+    this.pageChange.emit({page, size});
   }
 }

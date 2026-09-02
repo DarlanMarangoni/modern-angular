@@ -8,7 +8,7 @@ import {FloatLabel} from 'primeng/floatlabel';
 import {Message} from 'primeng/message';
 import {Button} from 'primeng/button';
 import {MessageService} from 'primeng/api';
-import {Provento, ProventosService} from '../../shared/service/proventos.service';
+import {IncomeDto, Provento, ProventosService} from '../../shared/service/proventos.service';
 import {Table} from '../../shared/components/table/table';
 import {CURRENT_USER_ID} from '../../shared/current-user';
 
@@ -47,9 +47,19 @@ export class Proventos implements OnInit {
 
   proventos = signal<Provento[]>([]);
 
+  page = signal(0);
+
+  totalRecords = signal(0);
+
+  editingId = signal<string | null>(null);
+
   ngOnInit(): void {
     this.tipos.set(['Acoes', 'Fundo Imobiliario', 'Renda Fixa']);
     this.buscaProventos();
+  }
+
+  protected onPageChange({page, size}: { page: number; size: number }) {
+    this.buscaProventos(page, size);
   }
 
   salvar() {
@@ -57,8 +67,8 @@ export class Proventos implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-    this.proventosService.salvar({
-      id: null,
+
+    const dto: IncomeDto = {
       name: this.form.getRawValue().nome,
       description: this.form.getRawValue().descricao,
       value: this.form.getRawValue().valor,
@@ -67,22 +77,50 @@ export class Proventos implements OnInit {
       }),
       type: this.form.getRawValue().tipo,
       userId: CURRENT_USER_ID
-    }).subscribe({
-      next: () => {
-        this.form.reset({
-          nome: ' ',
-          tipo: ' ',
-          descricao: '',
-          data: new Date(),
-          valor: 0
-        });
-        this.form.clearValidators();
+    };
 
+    const editingId = this.editingId();
+    const request = editingId
+      ? this.proventosService.update(editingId, dto)
+      : this.proventosService.salvar({id: null, ...dto});
+
+    request.subscribe({
+      next: () => {
+        this.cancelarEdicao();
         this.buscaProventos();
       },
       error: () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao salvar provento'})
     });
+  }
 
+  protected editar(id: string) {
+    this.proventosService.findById(id).subscribe({
+      next: provento => {
+        this.form.setValue({
+          nome: provento.name,
+          tipo: provento.type,
+          descricao: provento.description ?? '',
+          // provento.date is a plain 'yyyy-MM-dd' string — parse as local midnight, not UTC,
+          // or the datepicker shows the previous day for timezones behind UTC.
+          data: new Date(`${provento.date}T00:00:00`),
+          valor: provento.value
+        });
+        this.editingId.set(id);
+      },
+      error: () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao carregar provento'})
+    });
+  }
+
+  protected cancelarEdicao() {
+    this.form.reset({
+      nome: ' ',
+      tipo: ' ',
+      descricao: '',
+      data: new Date(),
+      valor: 0
+    });
+    this.form.clearValidators();
+    this.editingId.set(null);
   }
 
   protected deleteById(id: string) {
@@ -92,11 +130,13 @@ export class Proventos implements OnInit {
     });
   }
 
-  private buscaProventos() {
-    this.proventosService.findAll()
+  private buscaProventos(page = this.page(), size = 10) {
+    this.proventosService.findAll(page, size)
       .subscribe({
-        next: value => {
-          this.proventos.set(value);
+        next: response => {
+          this.proventos.set(response.content);
+          this.totalRecords.set(response.totalElements);
+          this.page.set(response.page);
         },
         error: () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao carregar proventos'})
       });
