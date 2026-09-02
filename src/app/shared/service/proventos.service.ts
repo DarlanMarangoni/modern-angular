@@ -1,6 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CURRENT_USER_ID} from '../current-user';
+import {PageResponse} from '../page-response';
 
 export interface Provento {
   id: string | null;
@@ -11,6 +12,8 @@ export interface Provento {
   date: string;
   userId: string;
 }
+
+export type IncomeDto = Omit<Provento, 'id'>;
 
 export interface YearMonth {
   month: string;
@@ -29,12 +32,20 @@ export class ProventosService {
     return this.http.post(`${this.API}/createMany`, [provento]);
   }
 
+  update(id: string, provento: IncomeDto) {
+    return this.http.put<Provento>(`${this.API}/${id}`, provento);
+  }
+
+  findById(id: string) {
+    return this.http.get<Provento>(`${this.API}/${id}`);
+  }
+
   listByMonth() {
     return this.http.get<YearMonth[]>(`${this.API}/${CURRENT_USER_ID}/listByMonth`);
   }
 
-  findAll() {
-    return this.http.get<Provento[]>(`${this.API}`);
+  findAll(page: number, size: number = 10) {
+    return this.http.get<PageResponse<Provento>>(`${this.API}`, {params: {page, size}});
   }
 
   deleteById(id: string) {

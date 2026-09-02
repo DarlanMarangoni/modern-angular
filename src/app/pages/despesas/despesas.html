@@ -44,7 +44,10 @@
       </div>
     </div>
     <div class="container">
-      <p-button label="Salvar Despesa" type="submit"/>
+      <p-button [label]="editingId() ? 'Atualizar Despesa' : 'Salvar Despesa'" type="submit"/>
+      @if (editingId()) {
+        <p-button label="Cancelar" severity="secondary" [outlined]="true" type="button" (onClick)="cancelarEdicao()"/>
+      }
     </div>
   </form>
 </div>
@@ -53,5 +56,9 @@
              [headers]="['Nome', 'Categoria', 'Valor', 'Data']"
              [title]="'Despesas'"
              [fields]="['name', 'description', 'value', 'date']"
+             [totalRecords]="totalRecords()"
+             [rows]="10"
+             (pageChange)="onPageChange($event)"
+             (editItem)="editar($event)"
              (deleteItem)="deleteById($event)"/>
 </div>

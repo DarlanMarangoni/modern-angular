@@ -1,5 +1,14 @@
 <div class="card">
-  <p-table [value]="values()" [tableStyle]="{ 'min-width': '1080px' }" stripedRows>
+  <p-table
+    [value]="values()"
+    [tableStyle]="{ 'min-width': '1080px' }"
+    stripedRows
+    [lazy]="true"
+    (onLazyLoad)="onLazyLoad($event)"
+    [paginator]="true"
+    [rows]="rows()"
+    [totalRecords]="totalRecords()"
+  >
     <ng-template #caption>
       <div class="flex items-center">
         <span class="text-xl font-bold">{{ title() }}</span>
@@ -25,7 +34,10 @@
           }
         }
         <td>
-          <p-button variant="text" (click)="delete(value.id)">
+          <p-button variant="text" (click)="edit(value.id)" ariaLabel="Editar">
+            <i class="pi pi-pencil"></i>
+          </p-button>
+          <p-button variant="text" (click)="delete(value.id)" ariaLabel="Excluir">
             <i class="pi pi-trash"></i>
           </p-button>
         </td>
@@ -33,7 +45,7 @@
     </ng-template>
     <ng-template #footer>
       <tr>
-        <td colspan="6">Mostrando os {{ values() ? values().length : 0 }} últimos(as) {{ title().toLowerCase() }}.</td>
+        <td colspan="6">Mostrando {{ values() ? values().length : 0 }} de {{ totalRecords() }} {{ title().toLowerCase() }}.</td>
       </tr>
     </ng-template>
   </p-table>
