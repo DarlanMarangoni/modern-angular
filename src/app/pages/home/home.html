@@ -1,23 +1,83 @@
-<div class="chart-wrapper">
-  <p-chart
-    type="bar"
-    [data]="proventosData()"
-    [options]="proventosOptions">
-  </p-chart>
-</div>
-<div class="chart-wrapper">
-  <p-chart
-    type="bar"
-    [data]="investimentosData()"
-    [options]="investimentosOptions">
-  </p-chart>
-</div>
-<div class="chart-wrapper">
-  <p-chart
-    type="bar"
-    [data]="despesasData()"
-    [options]="despesasOptions">
-  </p-chart>
-</div>
+<div class="main-container">
+  <div class="page-header">
+    <p class="subtitle">Acompanhe proventos, despesas e investimentos ao longo do tempo.</p>
+    <p-selectbutton
+      [options]="periodOptions"
+      [ngModel]="periodo()"
+      (ngModelChange)="periodo.set($event)"
+      optionLabel="label"
+      optionValue="value">
+    </p-selectbutton>
+  </div>
 
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-head">
+        <span class="stat-label">Total investido</span>
+        <span class="stat-icon investido"><i class="pi pi-wallet"></i></span>
+      </div>
+      <div class="stat-value">{{ formatCompact(totalInvestidoAtual()) }}</div>
+      <span class="stat-delta" [class]="statClass(deltaInvestido(), true)">{{ formatDelta(deltaInvestido()) }}</span>
+    </div>
 
+    <div class="stat-card">
+      <div class="stat-head">
+        <span class="stat-label">Fluxo do mês</span>
+        <span class="stat-icon fluxo"><i class="pi pi-sync"></i></span>
+      </div>
+      <div class="stat-value">{{ formatCompact(fluxoMesAtual()) }}</div>
+      <span class="stat-delta" [class]="statClass(deltaFluxo(), true)">{{ formatDelta(deltaFluxo()) }}</span>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-head">
+        <span class="stat-label">Proventos do mês</span>
+        <span class="stat-icon proventos"><i class="pi pi-arrow-up"></i></span>
+      </div>
+      <div class="stat-value">{{ formatCompact(proventosMesAtual()) }}</div>
+      <span class="stat-delta" [class]="statClass(deltaProventos(), true)">{{ formatDelta(deltaProventos()) }}</span>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-head">
+        <span class="stat-label">Despesas do mês</span>
+        <span class="stat-icon despesas"><i class="pi pi-arrow-down"></i></span>
+      </div>
+      <div class="stat-value">{{ formatCompact(despesasMesAtual()) }}</div>
+      <span class="stat-delta" [class]="statClass(deltaDespesas(), false)">{{ formatDelta(deltaDespesas()) }}</span>
+    </div>
+  </div>
+
+  <section class="chart-card">
+    <h2>Proventos</h2>
+    <div class="chart-wrapper">
+      <p-chart
+        type="bar"
+        [data]="proventosChartData()"
+        [options]="chartOptions()">
+      </p-chart>
+    </div>
+  </section>
+
+  <section class="chart-card">
+    <h2>Despesas</h2>
+    <div class="chart-wrapper">
+      <p-chart
+        type="bar"
+        [data]="despesasChartData()"
+        [options]="chartOptions()">
+      </p-chart>
+    </div>
+  </section>
+
+  <section class="chart-card">
+    <h2>Investimentos</h2>
+    <div class="chart-wrapper">
+      <p-chart
+        type="bar"
+        [data]="investimentosChartData()"
+        [options]="chartOptions()">
+      </p-chart>
+    </div>
+  </section>
+</div>

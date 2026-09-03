@@ -1,6 +1,134 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  .subtitle {
+    margin: 0;
+    color: var(--p-text-muted-color);
+  }
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stat-card {
+  background: var(--p-content-background);
+  border: 1px solid var(--p-content-border-color);
+  border-radius: var(--p-content-border-radius);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stat-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--p-text-muted-color);
+}
+
+.stat-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+
+  &.investido {
+    background: color-mix(in srgb, #1baf7a 16%, transparent);
+    color: #1baf7a;
+  }
+
+  &.fluxo {
+    background: color-mix(in srgb, #4a3aa7 16%, transparent);
+    color: #4a3aa7;
+  }
+
+  &.proventos {
+    background: color-mix(in srgb, #2a78d6 16%, transparent);
+    color: #2a78d6;
+  }
+
+  &.despesas {
+    background: color-mix(in srgb, #eb6834 16%, transparent);
+    color: #eb6834;
+  }
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--p-text-color);
+}
+
+.stat-delta {
+  align-self: flex-start;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+
+  &.positive {
+    color: #0ca30c;
+    background: color-mix(in srgb, #0ca30c 14%, transparent);
+  }
+
+  &.negative {
+    color: #d03b3b;
+    background: color-mix(in srgb, #d03b3b 14%, transparent);
+  }
+
+  &.neutral {
+    color: var(--p-text-muted-color);
+    background: var(--p-content-border-color);
+  }
+}
+
+.chart-card {
+  background: var(--p-content-background);
+  border: 1px solid var(--p-content-border-color);
+  border-radius: var(--p-content-border-radius);
+  padding: 20px;
+
+  h2 {
+    margin: 0 0 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--p-text-color);
+  }
+}
+
 .chart-wrapper {
   width: 100%;
-  max-width: 1080px;   /* controla a largura do gráfico */
-  margin: 0 auto;     /* centraliza horizontalmente */
-  padding: 0 16px;    /* espaço lateral interno */
+  height: 280px;
 }
