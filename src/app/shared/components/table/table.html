@@ -24,13 +24,22 @@
     </ng-template>
     <ng-template #body let-value>
       <tr>
-        @for (field of fields(); track field) {
+        @for (field of fields(); track field; let i = $index) {
           @if (field.includes('date')) {
             <td>{{ value[field] | date: 'dd/MM/yyyy' }}</td>
           } @else if (field.includes('value') || field.includes('Value')) {
             <td>{{ value[field] | currency: 'BRL' }}</td>
           } @else {
-            <td>{{ value[field] }}</td>
+            <td>
+              {{ value[field] }}
+              @if (i === 0) {
+                @for (badge of badges(); track badge.field) {
+                  @if (value[badge.field]) {
+                    <p-tag [value]="badge.label" severity="info" class="badge-tag"/>
+                  }
+                }
+              }
+            </td>
           }
         }
         <td>

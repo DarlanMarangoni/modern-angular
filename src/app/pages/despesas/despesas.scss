@@ -20,6 +20,17 @@
   min-width: 300px;
 }
 
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: unset;
+
+  label {
+    margin-right: 1rem;
+  }
+}
+
 @media (max-width: 1080px) {
   .field {
     width: 100%;

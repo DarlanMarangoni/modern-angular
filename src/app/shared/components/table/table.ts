@@ -3,6 +3,12 @@ import {CurrencyPipe, DatePipe} from '@angular/common';
 import {TableModule} from 'primeng/table';
 import type {TableLazyLoadEvent} from 'primeng/table';
 import {Button} from 'primeng/button';
+import {Tag} from 'primeng/tag';
+
+export interface TableBadge {
+  field: string;
+  label: string;
+}
 
 @Component({
   selector: 'app-table',
@@ -13,7 +19,8 @@ import {Button} from 'primeng/button';
     CurrencyPipe,
     TableModule,
     DatePipe,
-    Button
+    Button,
+    Tag
   ],
 })
 export class Table {
@@ -29,6 +36,9 @@ export class Table {
   totalRecords = input<number>(0);
 
   rows = input<number>(10);
+
+  // Optional boolean flags shown as small tags next to the first column's value.
+  badges = input<TableBadge[]>([]);
 
   deleteItem = output<string>();
 

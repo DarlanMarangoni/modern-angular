@@ -8,6 +8,8 @@ export interface ExpenseDto {
   description: string;
   value: number;
   date: Date;
+  fixed: boolean;
+  recurring: boolean;
 }
 
 export interface Despesa {
@@ -19,6 +21,8 @@ export interface Despesa {
   category: number;
   created: string;
   updated: string;
+  fixed: boolean;
+  recurring: boolean;
 }
 
 export interface ExpenseYearMonth {

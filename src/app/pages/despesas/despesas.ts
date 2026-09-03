@@ -9,10 +9,11 @@ import {InputNumber} from 'primeng/inputnumber';
 import {FloatLabel} from 'primeng/floatlabel';
 import {Message} from 'primeng/message';
 import {Button} from 'primeng/button';
+import {Checkbox} from 'primeng/checkbox';
 import {MessageService} from 'primeng/api';
 import {Category, CategoryService} from '../../shared/service/category.service';
 import {Despesa, DespesasService, ExpenseDto} from '../../shared/service/despesas.service';
-import {Table} from '../../shared/components/table/table';
+import {Table, TableBadge} from '../../shared/components/table/table';
 
 @Component({
   selector: 'app-despesas',
@@ -27,6 +28,7 @@ import {Table} from '../../shared/components/table/table';
     FloatLabel,
     Message,
     Button,
+    Checkbox,
     Table
   ],
   templateUrl: './despesas.html',
@@ -39,12 +41,19 @@ export class Despesas implements OnInit {
   despesasService = inject(DespesasService);
   messageService = inject(MessageService);
 
+  protected readonly badges: TableBadge[] = [
+    {field: 'fixed', label: 'Fixa'},
+    {field: 'recurring', label: 'Recorrente'}
+  ];
+
   form = this.fb.nonNullable.group({
     nome: ['', Validators.required],
     categoria: ['', Validators.required],
     descricao: [''],
     data: [new Date(), Validators.required],
-    valor: [0, [Validators.required]]
+    valor: [0, [Validators.required]],
+    fixa: [false],
+    recorrente: [false]
   });
 
   categorias = signal<Category[]>([]);
@@ -95,7 +104,9 @@ export class Despesas implements OnInit {
       category: this.form.getRawValue().categoria.trim(),
       date: this.form.getRawValue().data,
       description: this.form.getRawValue().descricao,
-      value: this.form.getRawValue().valor
+      value: this.form.getRawValue().valor,
+      fixed: this.form.getRawValue().fixa,
+      recurring: this.form.getRawValue().recorrente
     };
 
     const request = this.editingId()
@@ -122,7 +133,9 @@ export class Despesas implements OnInit {
           // despesa.date is a plain 'yyyy-MM-dd' string — parse as local midnight, not UTC,
           // or the datepicker shows the previous day for timezones behind UTC.
           data: new Date(`${despesa.date}T00:00:00`),
-          valor: despesa.value
+          valor: despesa.value,
+          fixa: despesa.fixed,
+          recorrente: despesa.recurring
         });
         this.editingId.set(id);
       },
@@ -136,7 +149,9 @@ export class Despesas implements OnInit {
       categoria: ' ',
       descricao: '',
       data: new Date(),
-      valor: 0
+      valor: 0,
+      fixa: false,
+      recorrente: false
     });
     this.form.clearValidators();
     this.editingId.set(null);
