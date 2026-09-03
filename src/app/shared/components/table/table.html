@@ -38,6 +38,9 @@
                     <p-tag [value]="badge.label" severity="info" class="badge-tag"/>
                   }
                 }
+                @if (installmentField() && value[installmentField()!.number] != null) {
+                  <p-tag [value]="value[installmentField()!.number] + '/' + value[installmentField()!.total]" severity="warn" class="badge-tag"/>
+                }
               }
             </td>
           }

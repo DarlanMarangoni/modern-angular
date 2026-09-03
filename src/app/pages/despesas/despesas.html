@@ -29,29 +29,59 @@
         </p-floatlabel>
       </div>
 
-      <div class="field">
-        <p-floatlabel variant="on">
-          <p-datepicker inputId="data" formControlName="data" dateFormat="dd/mm/yy" [showIcon]="true" iconDisplay="input"/>
-          <label for="data">Data</label>
-        </p-floatlabel>
-      </div>
+      @if (!editingId() && form.controls.parcelado.value) {
+        <div class="field">
+          <p-floatlabel variant="on">
+            <p-inputnumber inputId="valorTotal" formControlName="valorTotal" mode="currency" currency="BRL" locale="pt-BR"/>
+            <label for="valorTotal">Valor Total</label>
+          </p-floatlabel>
+        </div>
 
-      <div class="field">
-        <p-floatlabel variant="on">
-          <p-inputnumber inputId="valor" formControlName="valor" mode="currency" currency="BRL" locale="pt-BR"/>
-          <label for="valor">Valor</label>
-        </p-floatlabel>
-      </div>
+        <div class="field">
+          <p-floatlabel variant="on">
+            <p-inputnumber inputId="parcelas" formControlName="parcelas" [min]="1" [showButtons]="true"/>
+            <label for="parcelas">Parcelas</label>
+          </p-floatlabel>
+        </div>
 
-      <div class="field checkbox-field">
-        <p-checkbox inputId="fixa" formControlName="fixa" [binary]="true"/>
-        <label for="fixa">Despesa Fixa</label>
-        <p-checkbox inputId="recorrente" formControlName="recorrente" [binary]="true"/>
-        <label for="recorrente">Despesa Recorrente</label>
-      </div>
+        <div class="field">
+          <p-floatlabel variant="on">
+            <p-datepicker inputId="dataPrimeiraParcela" formControlName="dataPrimeiraParcela" dateFormat="dd/mm/yy" [showIcon]="true" iconDisplay="input"/>
+            <label for="dataPrimeiraParcela">1ª Parcela</label>
+          </p-floatlabel>
+        </div>
+      } @else {
+        <div class="field">
+          <p-floatlabel variant="on">
+            <p-datepicker inputId="data" formControlName="data" dateFormat="dd/mm/yy" [showIcon]="true" iconDisplay="input"/>
+            <label for="data">Data</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="field">
+          <p-floatlabel variant="on">
+            <p-inputnumber inputId="valor" formControlName="valor" mode="currency" currency="BRL" locale="pt-BR"/>
+            <label for="valor">Valor</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="field checkbox-field">
+          <p-checkbox inputId="fixa" formControlName="fixa" [binary]="true"/>
+          <label for="fixa">Despesa Fixa</label>
+          <p-checkbox inputId="recorrente" formControlName="recorrente" [binary]="true"/>
+          <label for="recorrente">Despesa Recorrente</label>
+        </div>
+      }
+
+      @if (!editingId()) {
+        <div class="field checkbox-field">
+          <p-checkbox inputId="parcelado" formControlName="parcelado" [binary]="true"/>
+          <label for="parcelado">Parcelar Compra</label>
+        </div>
+      }
     </div>
     <div class="container">
-      <p-button [label]="editingId() ? 'Atualizar Despesa' : 'Salvar Despesa'" type="submit"/>
+      <p-button [label]="editingId() ? 'Atualizar Despesa' : (form.controls.parcelado.value ? 'Financiar Compra' : 'Salvar Despesa')" type="submit"/>
       @if (editingId()) {
         <p-button label="Cancelar" severity="secondary" [outlined]="true" type="button" (onClick)="cancelarEdicao()"/>
       }
@@ -66,6 +96,7 @@
              [totalRecords]="totalRecords()"
              [rows]="10"
              [badges]="badges"
+             [installmentField]="installmentField"
              (pageChange)="onPageChange($event)"
              (editItem)="editar($event)"
              (deleteItem)="deleteById($event)"/>

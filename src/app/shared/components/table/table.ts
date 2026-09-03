@@ -10,6 +10,11 @@ export interface TableBadge {
   label: string;
 }
 
+export interface InstallmentField {
+  number: string;
+  total: string;
+}
+
 @Component({
   selector: 'app-table',
   templateUrl: './table.html',
@@ -39,6 +44,9 @@ export class Table {
 
   // Optional boolean flags shown as small tags next to the first column's value.
   badges = input<TableBadge[]>([]);
+
+  // Optional "n/total" tag (e.g. installment "2/24") shown next to the first column's value.
+  installmentField = input<InstallmentField | null>(null);
 
   deleteItem = output<string>();
 

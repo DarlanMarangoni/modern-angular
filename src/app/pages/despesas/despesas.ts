@@ -12,8 +12,8 @@ import {Button} from 'primeng/button';
 import {Checkbox} from 'primeng/checkbox';
 import {MessageService} from 'primeng/api';
 import {Category, CategoryService} from '../../shared/service/category.service';
-import {Despesa, DespesasService, ExpenseDto} from '../../shared/service/despesas.service';
-import {Table, TableBadge} from '../../shared/components/table/table';
+import {Despesa, DespesasService, ExpenseDto, FinancedExpenseDto} from '../../shared/service/despesas.service';
+import {InstallmentField, Table, TableBadge} from '../../shared/components/table/table';
 
 @Component({
   selector: 'app-despesas',
@@ -46,6 +46,8 @@ export class Despesas implements OnInit {
     {field: 'recurring', label: 'Recorrente'}
   ];
 
+  protected readonly installmentField: InstallmentField = {number: 'installmentNumber', total: 'totalInstallments'};
+
   form = this.fb.nonNullable.group({
     nome: ['', Validators.required],
     categoria: ['', Validators.required],
@@ -53,7 +55,11 @@ export class Despesas implements OnInit {
     data: [new Date(), Validators.required],
     valor: [0, [Validators.required]],
     fixa: [false],
-    recorrente: [false]
+    recorrente: [false],
+    parcelado: [false],
+    valorTotal: [0],
+    parcelas: [1],
+    dataPrimeiraParcela: [new Date()]
   });
 
   categorias = signal<Category[]>([]);
@@ -95,6 +101,11 @@ export class Despesas implements OnInit {
   }
 
   salvar() {
+    if (!this.editingId() && this.form.getRawValue().parcelado) {
+      this.financiar();
+      return;
+    }
+
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -122,6 +133,32 @@ export class Despesas implements OnInit {
     });
   }
 
+  private financiar() {
+    const {nome, categoria, descricao, valorTotal, parcelas, dataPrimeiraParcela} = this.form.getRawValue();
+    if (!nome.trim() || !categoria.trim() || !valorTotal || parcelas < 1) {
+      this.form.markAllAsTouched();
+      this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Preencha nome, categoria, valor total e número de parcelas'});
+      return;
+    }
+
+    const dto: FinancedExpenseDto = {
+      name: nome.trim(),
+      category: categoria.trim(),
+      description: descricao,
+      totalValue: valorTotal,
+      installments: parcelas,
+      startDate: dataPrimeiraParcela.toLocaleDateString('en-CA', {timeZone: 'America/Sao_Paulo'})
+    };
+
+    this.despesasService.financiar(dto).subscribe({
+      next: () => {
+        this.cancelarEdicao();
+        this.buscaDespesas();
+      },
+      error: () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao financiar compra'})
+    });
+  }
+
   protected editar(id: string) {
     this.despesasService.findById(id).subscribe({
       next: despesa => {
@@ -135,7 +172,11 @@ export class Despesas implements OnInit {
           data: new Date(`${despesa.date}T00:00:00`),
           valor: despesa.value,
           fixa: despesa.fixed,
-          recorrente: despesa.recurring
+          recorrente: despesa.recurring,
+          parcelado: false,
+          valorTotal: 0,
+          parcelas: 1,
+          dataPrimeiraParcela: new Date()
         });
         this.editingId.set(id);
       },
@@ -151,7 +192,11 @@ export class Despesas implements OnInit {
       data: new Date(),
       valor: 0,
       fixa: false,
-      recorrente: false
+      recorrente: false,
+      parcelado: false,
+      valorTotal: 0,
+      parcelas: 1,
+      dataPrimeiraParcela: new Date()
     });
     this.form.clearValidators();
     this.editingId.set(null);

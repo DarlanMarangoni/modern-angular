@@ -12,6 +12,15 @@ export interface ExpenseDto {
   recurring: boolean;
 }
 
+export interface FinancedExpenseDto {
+  name: string;
+  category: string;
+  description: string;
+  totalValue: number;
+  installments: number;
+  startDate: string;
+}
+
 export interface Despesa {
   id: string;
   name: string;
@@ -23,6 +32,8 @@ export interface Despesa {
   updated: string;
   fixed: boolean;
   recurring: boolean;
+  installmentNumber: number | null;
+  totalInstallments: number | null;
 }
 
 export interface ExpenseYearMonth {
@@ -40,6 +51,10 @@ export class DespesasService {
 
   salvar(despesa: ExpenseDto) {
     return this.http.post(this.API, despesa);
+  }
+
+  financiar(despesa: FinancedExpenseDto) {
+    return this.http.post<Despesa[]>(`${this.API}/financed`, despesa);
   }
 
   update(id: string, despesa: ExpenseDto) {
