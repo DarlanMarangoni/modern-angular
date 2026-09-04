@@ -2,6 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CURRENT_USER_ID} from '../current-user';
 import {PageResponse} from '../page-response';
+import {INVESTMENT_API_BASE} from '../api-config';
 
 export interface Provento {
   id: string | null;
@@ -26,7 +27,7 @@ export interface YearMonth {
 export class ProventosService {
 
   private http = inject(HttpClient);
-  private readonly API = 'http://darlan-ms-7e24.tail547bb5.ts.net:8082/income';
+  private readonly API = `${INVESTMENT_API_BASE}/income`;
 
   salvar(provento: Provento) {
     return this.http.post(`${this.API}/createMany`, [provento]);

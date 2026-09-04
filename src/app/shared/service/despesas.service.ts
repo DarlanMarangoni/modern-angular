@@ -1,6 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {PageResponse} from '../page-response';
+import {EXPENSE_API_BASE} from '../api-config';
 
 export interface ExpenseDto {
   name: string;
@@ -47,7 +48,7 @@ export interface ExpenseYearMonth {
 export class DespesasService {
 
   private http = inject(HttpClient);
-  private readonly API = 'http://darlan-ms-7e24.tail547bb5.ts.net:8081/expenses';
+  private readonly API = `${EXPENSE_API_BASE}/expenses`;
 
   salvar(despesa: ExpenseDto) {
     return this.http.post(this.API, despesa);

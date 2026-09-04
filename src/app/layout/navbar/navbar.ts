@@ -4,6 +4,7 @@ import { Toolbar } from 'primeng/toolbar';
 import { Button } from 'primeng/button';
 import { Drawer } from 'primeng/drawer';
 import { ThemeService } from '../../shared/service/theme.service';
+import { AuthService } from '../../shared/service/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -20,6 +21,8 @@ import { ThemeService } from '../../shared/service/theme.service';
 export class Navbar {
 
   protected readonly themeService = inject(ThemeService);
+
+  protected readonly authService = inject(AuthService);
 
   protected drawerVisible = false;
 

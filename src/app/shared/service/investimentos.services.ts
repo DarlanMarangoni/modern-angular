@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {YearMonth} from './proventos.service';
 import {CURRENT_USER_ID} from '../current-user';
 import {PageResponse} from '../page-response';
+import {INVESTMENT_API_BASE} from '../api-config';
 
 export interface Investimento {
   id?: string;
@@ -32,7 +33,7 @@ export interface InvestmentDto {
 export class InvestimentosServices {
 
   private http = inject(HttpClient);
-  private readonly API = 'http://darlan-ms-7e24.tail547bb5.ts.net:8082/investments';
+  private readonly API = `${INVESTMENT_API_BASE}/investments`;
 
   salvar(investimento: Investimento) {
     return this.http.post(`${this.API}/createMany`, [investimento]);

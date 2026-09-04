@@ -2,6 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs';
 import {PageResponse} from '../page-response';
+import {EXPENSE_API_BASE} from '../api-config';
 
 export interface Category {
   id: number;
@@ -14,7 +15,7 @@ export interface Category {
 export class CategoryService {
 
   private http = inject(HttpClient);
-  private readonly API = 'http://darlan-ms-7e24.tail547bb5.ts.net:8081/categories';
+  private readonly API = `${EXPENSE_API_BASE}/categories`;
 
   getCategories() {
     // The dropdown needs every category, not just one page — 100 comfortably covers

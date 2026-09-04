@@ -1,0 +1,35 @@
+<div class="login-container">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="login-form">
+    <h2>Entrar</h2>
+
+    <div class="field">
+      <p-floatlabel variant="on">
+        <input pInputText id="email" formControlName="email" autocomplete="username"/>
+        <label for="email">E-mail</label>
+      </p-floatlabel>
+      @if (form.controls.email.invalid && (form.controls.email.touched || form.controls.email.dirty)) {
+        <p-message severity="error" size="small" variant="simple">
+          Informe um e-mail válido
+        </p-message>
+      }
+    </div>
+
+    <div class="field">
+      <p-floatlabel variant="on">
+        <p-password inputId="password" formControlName="password" [feedback]="false" [toggleMask]="true" autocomplete="current-password"/>
+        <label for="password">Senha</label>
+      </p-floatlabel>
+      @if (form.controls.password.invalid && (form.controls.password.touched || form.controls.password.dirty)) {
+        <p-message severity="error" size="small" variant="simple">
+          Senha é obrigatória
+        </p-message>
+      }
+    </div>
+
+    @if (errorMessage()) {
+      <p-message severity="error" size="small" variant="simple">{{ errorMessage() }}</p-message>
+    }
+
+    <p-button type="submit" label="Entrar" [loading]="loading()" styleClass="w-full"/>
+  </form>
+</div>
