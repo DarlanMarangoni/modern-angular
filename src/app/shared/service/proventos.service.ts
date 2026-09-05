@@ -1,6 +1,5 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {CURRENT_USER_ID} from '../current-user';
 import {PageResponse} from '../page-response';
 import {INVESTMENT_API_BASE} from '../api-config';
 
@@ -11,7 +10,6 @@ export interface Provento {
   type: string;
   value: number;
   date: string;
-  userId: string;
 }
 
 export type IncomeDto = Omit<Provento, 'id'>;
@@ -42,7 +40,7 @@ export class ProventosService {
   }
 
   listByMonth() {
-    return this.http.get<YearMonth[]>(`${this.API}/${CURRENT_USER_ID}/listByMonth`);
+    return this.http.get<YearMonth[]>(`${this.API}/listByMonth`);
   }
 
   findAll(page: number, size: number = 10) {

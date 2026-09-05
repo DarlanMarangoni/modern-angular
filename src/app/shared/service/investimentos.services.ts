@@ -1,7 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {YearMonth} from './proventos.service';
-import {CURRENT_USER_ID} from '../current-user';
 import {PageResponse} from '../page-response';
 import {INVESTMENT_API_BASE} from '../api-config';
 
@@ -13,7 +12,6 @@ export interface Investimento {
   totalValue: number;
   amount: number;
   date: Date;
-  userId: string;
 }
 
 export interface InvestmentDto {
@@ -24,7 +22,6 @@ export interface InvestmentDto {
   totalValue: number;
   amount: number;
   date: Date;
-  userId: string;
 }
 
 @Injectable({
@@ -48,7 +45,7 @@ export class InvestimentosServices {
   }
 
   listByMonth() {
-    return this.http.get<YearMonth[]>(`${this.API}/${CURRENT_USER_ID}/listByMonth`);
+    return this.http.get<YearMonth[]>(`${this.API}/listByMonth`);
   }
 
   findAll(page: number, size: number = 10) {

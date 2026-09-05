@@ -10,7 +10,6 @@ import {Button} from 'primeng/button';
 import {MessageService} from 'primeng/api';
 import {Investimento, InvestimentosServices, InvestmentDto} from '../../shared/service/investimentos.services';
 import {Table} from '../../shared/components/table/table';
-import {CURRENT_USER_ID} from '../../shared/current-user';
 
 @Component({
   selector: 'app-investimentos',
@@ -88,8 +87,7 @@ export class Investimentos implements OnInit{
         // unitValue isn't collected by this form — it's derivable from the two fields we do have.
         unitValue: quantidade ? valor / quantidade : 0,
         amount: quantidade,
-        date: data,
-        userId: CURRENT_USER_ID
+        date: data
       } satisfies InvestmentDto)
       : this.investimentosService.salvar({
         name: nome,
@@ -97,8 +95,7 @@ export class Investimentos implements OnInit{
         type: tipo,
         totalValue: valor,
         amount: quantidade,
-        date: data,
-        userId: CURRENT_USER_ID
+        date: data
       });
 
     request.subscribe({

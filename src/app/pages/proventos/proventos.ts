@@ -10,7 +10,6 @@ import {Button} from 'primeng/button';
 import {MessageService} from 'primeng/api';
 import {IncomeDto, Provento, ProventosService} from '../../shared/service/proventos.service';
 import {Table} from '../../shared/components/table/table';
-import {CURRENT_USER_ID} from '../../shared/current-user';
 
 @Component({
   selector: 'app-proventos',
@@ -75,8 +74,7 @@ export class Proventos implements OnInit {
       date: this.form.getRawValue().data.toLocaleDateString('en-CA', {
         timeZone: 'America/Sao_Paulo'
       }),
-      type: this.form.getRawValue().tipo,
-      userId: CURRENT_USER_ID
+      type: this.form.getRawValue().tipo
     };
 
     const editingId = this.editingId();
